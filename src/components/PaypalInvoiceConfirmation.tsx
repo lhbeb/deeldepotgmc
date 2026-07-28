@@ -180,7 +180,7 @@ export default function PaypalInvoiceConfirmation({
         return () => {
             window.removeEventListener('resize', updateViewportMode);
         };
-    }, []);
+    }, [isUnclaimed]);
 
     useEffect(() => {
         if (isUnclaimed) return;

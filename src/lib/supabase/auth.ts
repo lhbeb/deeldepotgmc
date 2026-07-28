@@ -1,5 +1,7 @@
 import { supabaseAdmin } from './server';
 
+export const runtime = 'nodejs';
+
 /**
  * Check if authentication should be bypassed in development
  * Set DISABLE_AUTH_IN_DEV=true in .env.local to bypass authentication
