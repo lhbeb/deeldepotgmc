@@ -5,22 +5,20 @@ import HomeFeaturedSection from '@/components/HomeFeaturedSection';
 import ProductGrid from '@/components/ProductGrid';
 import HomeReviews from '@/components/HomeReviews';
 import CategorySection from '@/components/CategorySection';
-import { getProducts, getFeaturedProducts, getProductsByCollection } from '@/lib/data';
+import { getFeaturedProducts } from '@/lib/data';
 import { homeReviews, homeReviewsStats } from '@/lib/homeReviews';
 import ScrollToTop from '@/components/ScrollToTop';
 
 export default async function HomePage() {
   try {
-    const [allProducts, featuredFromAdmin, lawnGardenProducts, powerToolsProducts] = await Promise.all([
-      getProducts(),
-      getFeaturedProducts(),
-      getProductsByCollection('lawn-garden'),
-      getProductsByCollection('power-tools'),
-    ]);
+    const featuredProducts = await getFeaturedProducts();
 
-    const featuredProductsPool = (featuredFromAdmin && featuredFromAdmin.length > 0)
-      ? featuredFromAdmin
-      : (allProducts || []);
+    const powerToolsProducts = featuredProducts.filter(p =>
+      p.collections?.includes('power-tools')
+    );
+    const lawnGardenProducts = featuredProducts.filter(p =>
+      p.collections?.includes('lawn-garden')
+    );
 
   return (
     <>
@@ -29,7 +27,7 @@ export default async function HomePage() {
       </Suspense>
       <Hero />
 
-      <HomeFeaturedSection products={featuredProductsPool} />
+      <HomeFeaturedSection products={featuredProducts} />
       
       <SameDayShipping />
       

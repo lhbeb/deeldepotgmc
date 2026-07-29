@@ -303,7 +303,7 @@ export async function getFeaturedProducts(): Promise<Product[]> {
       .select('*')
       .eq('is_featured', true)
       .order('updated_at', { ascending: false })
-      .limit(6);
+      .limit(18);
 
     if (error) {
       console.error('Error fetching featured products:', error);
