@@ -7,19 +7,23 @@ import { createVisitorRotationSeed, selectRotatedProducts } from '@/utils/visito
 
 interface CategorySectionProps {
   products: Product[];
+  title?: string;
+  subtitle?: string;
+  maxDisplay?: number;
   shuffleForVisitor?: boolean;
   visitorShuffleKey?: string;
 }
 
-const SECTION_PRODUCT_COUNT = 8;
-
 const CategorySection: React.FC<CategorySectionProps> = ({
   products,
+  title = 'Power Tools & Generators',
+  subtitle = 'Reliable equipment to get the job done.',
+  maxDisplay = 8,
   shuffleForVisitor = false,
   visitorShuffleKey = 'home-power-tools',
 }) => {
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>(() =>
-    products.slice(0, SECTION_PRODUCT_COUNT),
+    products.slice(0, maxDisplay),
   );
 
   useEffect(() => {
@@ -29,13 +33,13 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     }
 
     if (!shuffleForVisitor) {
-      setDisplayedProducts(products.slice(0, SECTION_PRODUCT_COUNT));
+      setDisplayedProducts(products.slice(0, maxDisplay));
       return;
     }
 
     const seed = createVisitorRotationSeed(visitorShuffleKey);
-    setDisplayedProducts(selectRotatedProducts(products, seed, SECTION_PRODUCT_COUNT));
-  }, [products, shuffleForVisitor, visitorShuffleKey]);
+    setDisplayedProducts(selectRotatedProducts(products, seed, maxDisplay));
+  }, [products, shuffleForVisitor, visitorShuffleKey, maxDisplay]);
 
   if (!displayedProducts || displayedProducts.length === 0) {
     return null;
@@ -47,10 +51,10 @@ const CategorySection: React.FC<CategorySectionProps> = ({
         <div className="w-full max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#262626] mb-4">
-              Power Tools & Generators
+              {title}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Reliable equipment to get the job done.
+              {subtitle}
             </p>
           </div>
 

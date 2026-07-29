@@ -111,7 +111,7 @@ function Field({
 }
 
 export default function NewProductPage() {
-  const FEATURE_LIMIT = 6;
+  const FEATURE_LIMIT = 18;
   const router = useRouter();
   const imageUploaderRef = useRef<ImageUploaderRef>(null);
   const [loading, setLoading] = useState(false);

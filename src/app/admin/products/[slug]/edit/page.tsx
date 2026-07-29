@@ -101,7 +101,7 @@ function Field({
 }
 
 export default function EditProductPage() {
-  const FEATURE_LIMIT = 6;
+  const FEATURE_LIMIT = 18;
   const router = useRouter();
   const params = useParams();
   const slug = params.slug as string;

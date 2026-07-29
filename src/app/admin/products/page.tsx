@@ -58,7 +58,7 @@ export default function AdminProductsPage() {
   const [exportingGoogleCSV, setExportingGoogleCSV] = useState(false);
   const [exportingJSON, setExportingJSON] = useState(false);
   const [adminRole, setAdminRole] = useState<string | null>(null);
-  const FEATURE_LIMIT = 6;
+   const FEATURE_LIMIT = 18;
   const itemsPerPage = 12;
 
   const fetchProducts = useCallback(async () => {
