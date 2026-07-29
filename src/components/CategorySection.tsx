@@ -5,21 +5,21 @@ import ProductCard from './ProductCard';
 import type { Product } from '@/types/product';
 import { createVisitorRotationSeed, selectRotatedProducts } from '@/utils/visitorProductRotation';
 
-interface FashionProductsProps {
+interface CategorySectionProps {
   products: Product[];
   shuffleForVisitor?: boolean;
   visitorShuffleKey?: string;
 }
 
-const FASHION_PRODUCT_COUNT = 8;
+const SECTION_PRODUCT_COUNT = 8;
 
-const FashionProducts: React.FC<FashionProductsProps> = ({
+const CategorySection: React.FC<CategorySectionProps> = ({
   products,
   shuffleForVisitor = false,
-  visitorShuffleKey = 'home-fashion',
+  visitorShuffleKey = 'home-power-tools',
 }) => {
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>(() =>
-    products.slice(0, FASHION_PRODUCT_COUNT),
+    products.slice(0, SECTION_PRODUCT_COUNT),
   );
 
   useEffect(() => {
@@ -29,29 +29,28 @@ const FashionProducts: React.FC<FashionProductsProps> = ({
     }
 
     if (!shuffleForVisitor) {
-      setDisplayedProducts(products.slice(0, FASHION_PRODUCT_COUNT));
+      setDisplayedProducts(products.slice(0, SECTION_PRODUCT_COUNT));
       return;
     }
 
     const seed = createVisitorRotationSeed(visitorShuffleKey);
-    setDisplayedProducts(selectRotatedProducts(products, seed, FASHION_PRODUCT_COUNT));
+    setDisplayedProducts(selectRotatedProducts(products, seed, SECTION_PRODUCT_COUNT));
   }, [products, shuffleForVisitor, visitorShuffleKey]);
 
-  // If no fashion products, don't render the section
   if (!displayedProducts || displayedProducts.length === 0) {
     return null;
   }
 
   return (
-    <section id="fashion" className="py-16 bg-white">
+    <section id="power-tools" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="w-full max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#262626] mb-4">
-              The Top Shelf Closet
+              Power Tools & Generators
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Top brands. Checked. Ready to wear.
+              Reliable equipment to get the job done.
             </p>
           </div>
 
@@ -66,4 +65,4 @@ const FashionProducts: React.FC<FashionProductsProps> = ({
   );
 };
 
-export default FashionProducts;
+export default CategorySection;

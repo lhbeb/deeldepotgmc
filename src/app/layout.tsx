@@ -111,9 +111,9 @@ export default function RootLayout({
                 "logo": "https://deeldepot.com/logosvg.svg",
                 "description": "Deel Depot - Power Your Outdoor and Home Projects With Confidence. Discover reliable lawn mowers, power tools, generators, and garden essentials.",
                 "sameAs": [
-                  "https://twitter.com/deeldepot",
-                  "https://facebook.com/deeldepot",
-                  "https://instagram.com/deeldepot"
+                  "https://www.tiktok.com/@deel_depot",
+                  "https://www.instagram.com/deel_depot/",
+                  "https://fr.pinterest.com/deel_depot/_profile/"
                 ],
                 "contactPoint": {
                   "@type": "ContactPoint",

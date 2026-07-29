@@ -4,18 +4,18 @@ import SameDayShipping from '@/components/SameDayShipping';
 import HomeFeaturedSection from '@/components/HomeFeaturedSection';
 import ProductGrid from '@/components/ProductGrid';
 import HomeReviews from '@/components/HomeReviews';
-import FashionProducts from '@/components/FashionProducts';
+import CategorySection from '@/components/CategorySection';
 import { getProducts, getFeaturedProducts, getProductsByCollection } from '@/lib/data';
 import { homeReviews, homeReviewsStats } from '@/lib/homeReviews';
 import ScrollToTop from '@/components/ScrollToTop';
 
 export default async function HomePage() {
   try {
-    const [allProducts, featuredFromAdmin, electronicsProducts, fashionProducts] = await Promise.all([
+    const [allProducts, featuredFromAdmin, lawnGardenProducts, powerToolsProducts] = await Promise.all([
       getProducts(),
       getFeaturedProducts(),
-      getProductsByCollection('electronics'),
-      getProductsByCollection('fashion'),
+      getProductsByCollection('lawn-garden'),
+      getProductsByCollection('power-tools'),
     ]);
 
     const featuredProductsPool = (featuredFromAdmin && featuredFromAdmin.length > 0)
@@ -33,15 +33,15 @@ export default async function HomePage() {
       
       <SameDayShipping />
       
-      <FashionProducts products={fashionProducts} shuffleForVisitor visitorShuffleKey="home-fashion" />
+      <CategorySection products={powerToolsProducts} shuffleForVisitor visitorShuffleKey="home-power-tools" />
       
-      {electronicsProducts.length > 0 && (
+      {lawnGardenProducts.length > 0 && (
         <Suspense fallback={null}>
           <ProductGrid 
-            products={electronicsProducts} 
-            title="Gadgets & Electronics"
+            products={lawnGardenProducts} 
+            title="Lawn & Garden Equipment"
             randomizeForVisitor
-            visitorShuffleKey="home-electronics"
+            visitorShuffleKey="home-lawn-garden"
           />
         </Suspense>
       )}
