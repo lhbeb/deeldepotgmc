@@ -430,7 +430,7 @@ export function getAddressConfig(countryCode: string): AddressConfig {
   return ADDRESS_CONFIGS[countryCode] || GENERIC_CONFIG;
 }
 
-export function getLegacyAddressConfig(): AddressConfig {
+export function getLegacyAddressConfig(_isUK?: boolean): AddressConfig {
   return LEGACY_CONFIG;
 }
 
