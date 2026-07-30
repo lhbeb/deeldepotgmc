@@ -51,11 +51,11 @@ export default async function HomePage() {
           <ProductGrid
             products={lawnGardenProducts}
             sectionId="lawn-garden-equipment"
-            title="Lawn & Garden Equipment"
+            title=""
             editorialCard={{
               title: 'Reliable Power for Every Yard',
               description:
-                'Xavlyin lawn mowers are designed to deliver consistent performance and smooth cutting for lawns of all sizes. Built with durability and efficiency in mind, they make yard maintenance easier and more manageable. Whether you prefer gas or cordless options, our lawn mowers provide the strength and reliability you need for a clean, well-maintained lawn every time.',
+                'Deel Depot lawn mowers are designed to deliver consistent performance and smooth cutting for lawns of all sizes. Built with durability and efficiency in mind, they make yard maintenance easier and more manageable. Whether you prefer gas or cordless options, our lawn mowers provide the strength and reliability you need for a clean, well-maintained lawn every time.',
             }}
             randomizeForVisitor
             visitorShuffleKey="home-lawn-garden"

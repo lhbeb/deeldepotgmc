@@ -15,7 +15,7 @@ interface ProductGridProps {
   products: Product[];
   sectionId?: string;
   editorialCard?: {
-    title: string;
+    title?: string;
     description: string;
   };
   showHeader?: boolean;
@@ -454,9 +454,9 @@ const ProductGrid = ({
           <div className="flex-grow">
             {showHeader && (
               <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="text-2xl font-medium text-[#262626]">{title}</h2>
+                {title && <h2 className="text-2xl font-medium text-[#262626]">{title}</h2>}
 
-                <div className="flex items-center gap-3">
+                <div className={`${title ? '' : 'ml-auto'} flex items-center gap-3`}>
                   <button
                     type="button"
                     className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-gray-50"
@@ -558,21 +558,14 @@ const ProductGrid = ({
               <>
                 <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {editorialCard && currentPage === 1 && (
-                    <article className="relative col-span-2 flex min-h-[360px] overflow-hidden rounded-md bg-[#030B19] p-6 text-[#F0F6FF] shadow-sm sm:min-h-[420px] sm:p-8 lg:min-h-0">
-                      <div
-                        aria-hidden="true"
-                        className="absolute -right-20 -top-24 h-64 w-64 rounded-full border-[48px] border-[#f5970c]/10"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-[#f5970c] via-[#f5970c]/30 to-transparent"
-                      />
-                      <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center">
-                        <div className="mb-6 h-1 w-12 rounded-full bg-[#f5970c]" />
-                        <h3 className="max-w-xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                          {editorialCard.title}
-                        </h3>
-                        <p className="mt-5 max-w-xl text-sm leading-7 text-[#F0F6FF]/75 sm:text-base sm:leading-8">
+                    <article className="col-span-2 self-start pb-8 pr-2 pt-0 text-left sm:pr-8 lg:pb-12 lg:pr-14">
+                      <div className="w-full">
+                        {editorialCard.title && (
+                          <h2 className="max-w-[24rem] text-3xl font-semibold leading-[1.35] text-[#262626] sm:text-4xl">
+                            {editorialCard.title}
+                          </h2>
+                        )}
+                        <p className={`${editorialCard.title ? 'mt-5' : ''} max-w-[34rem] text-base leading-8 text-gray-600 sm:text-lg sm:leading-9`}>
                           {editorialCard.description}
                         </p>
                       </div>

@@ -28,15 +28,15 @@ const InstagramWidget: React.FC = () => {
             {/* Statistics */}
             <div className="flex items-center space-x-6 text-sm">
               <div className="text-center">
-                <div className="font-bold text-[#262626]">11</div>
+                <div className="font-bold text-[#262626]">8</div>
                 <div className="text-gray-500">posts</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-[#262626]">15.6K</div>
+                <div className="font-bold text-[#262626]">2,454</div>
                 <div className="text-gray-500">followers</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-[#262626]">2</div>
+                <div className="font-bold text-[#262626]">7</div>
                 <div className="text-gray-500">following</div>
               </div>
             </div>
