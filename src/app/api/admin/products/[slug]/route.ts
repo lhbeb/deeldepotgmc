@@ -35,6 +35,7 @@ function revalidateProductPaths(slug: string) {
   revalidatePath('/');
   revalidatePath('/products');
   revalidatePath(`/products/${slug}`);
+  revalidatePath('/api/feed/google');
 }
 
 // Helper to get auth from request

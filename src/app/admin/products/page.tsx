@@ -30,7 +30,13 @@ interface Product {
   is_featured?: boolean;
   published?: boolean;
   listedBy?: string | null;
+  meta?: {
+    gmc_enabled?: boolean;
+    [key: string]: unknown;
+  };
 }
+
+const isGmcEnabled = (product: Product) => product.meta?.gmc_enabled === true;
 
 type ViewMode = 'grid' | 'list';
 
@@ -50,6 +56,7 @@ export default function AdminProductsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [togglingFeatured, setTogglingFeatured] = useState<string | null>(null);
+  const [togglingGmc, setTogglingGmc] = useState<string | null>(null);
   const [togglingStock, setTogglingStock] = useState<string | null>(null);
   const [featuredCount, setFeaturedCount] = useState(0);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -296,6 +303,44 @@ export default function AdminProductsPage() {
     }
   };
 
+  const handleToggleGmc = async (slug: string) => {
+    const product = products.find((item) => item.slug === slug);
+    if (!product) return;
+
+    const nextGmcStatus = !isGmcEnabled(product);
+    setTogglingGmc(slug);
+    setError('');
+
+    try {
+      const token = localStorage.getItem('admin_token');
+      const response = await fetch(`/api/admin/products/${encodeURIComponent(slug)}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` }),
+        },
+        body: JSON.stringify({ meta: { gmc_enabled: nextGmcStatus } }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to update GMC selection');
+      }
+
+      const applyGmcStatus = (item: Product): Product =>
+        item.slug === slug
+          ? { ...item, meta: { ...(item.meta || {}), gmc_enabled: nextGmcStatus } }
+          : item;
+
+      setProducts((previous) => previous.map(applyGmcStatus));
+      setFilteredProducts((previous) => previous.map(applyGmcStatus));
+    } catch (err: any) {
+      setError(err.message || 'Failed to update GMC selection');
+    } finally {
+      setTogglingGmc(null);
+    }
+  };
+
   const handleToggleSelect = (slug: string) => {
     setSelectedProducts(prev => {
       const newSet = new Set(prev);
@@ -515,6 +560,16 @@ export default function AdminProductsPage() {
         return;
       }
 
+      const gmcProducts = allProducts.filter(
+        (product: Product) => product.meta?.gmc_enabled === true,
+      );
+
+      if (gmcProducts.length === 0) {
+        setError('No products are selected for GMC. Use the GMC button on a product first.');
+        setExportingGoogleCSV(false);
+        return;
+      }
+
       const domain = 'https://deeldepot.com';
 
       // 1:1 Match with Google Merchant Center official CSV template headers
@@ -538,7 +593,7 @@ export default function AdminProductsPage() {
         return str;
       };
 
-      const rows = allProducts.map((p: any) => {
+      const rows = gmcProducts.map((p: any) => {
         const images: string[] = p.images || [];
         const mainImage = images[0] || '';
         const additionalImages = images.slice(1, 10).join(',');
@@ -687,7 +742,7 @@ export default function AdminProductsPage() {
   return (
     <AdminLayout
       title="Products"
-      subtitle={`${products.length} products • ${products.filter(p => p.published).length} published • ${products.filter(p => !p.published).length} drafts • ${featuredCount}/${FEATURE_LIMIT} featured • ${products.filter(p => p.inStock === false).length} sold out`}
+      subtitle={`${products.length} products • ${products.filter(p => p.published).length} published • ${products.filter(p => !p.published).length} drafts • ${featuredCount}/${FEATURE_LIMIT} featured • ${products.filter(isGmcEnabled).length} GMC • ${products.filter(p => p.inStock === false).length} sold out`}
     >
       {/* Error Alert */}
       {error && (
@@ -1049,6 +1104,11 @@ export default function AdminProductsPage() {
                       Featured
                     </div>
                   )}
+                  {isGmcEnabled(product) && (
+                    <div className="px-2 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full">
+                      GMC
+                    </div>
+                  )}
                   {product.inStock === false && (
                     <div className="px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full flex items-center gap-1">
                       <PackageX className="h-3 w-3" />
@@ -1140,6 +1200,23 @@ export default function AdminProductsPage() {
                     <span className="text-sm text-gray-400 line-through">${product.original_price.toFixed(2)}</span>
                   )}
                 </div>
+                <button
+                  type="button"
+                  onClick={() => handleToggleGmc(product.slug)}
+                  disabled={togglingGmc === product.slug}
+                  aria-pressed={isGmcEnabled(product)}
+                  className={`mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold transition-colors disabled:opacity-60 ${isGmcEnabled(product)
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  title={isGmcEnabled(product) ? 'Remove product from Google Merchant Center feed' : 'Add product to Google Merchant Center feed'}
+                >
+                  {togglingGmc === product.slug && <RefreshCw className="h-3.5 w-3.5 animate-spin" />}
+                  GMC
+                  <span className={isGmcEnabled(product) ? 'text-blue-100' : 'text-gray-400'}>
+                    {isGmcEnabled(product) ? 'Included' : 'Excluded'}
+                  </span>
+                </button>
               </div>
             </div>
           ))}
@@ -1168,6 +1245,7 @@ export default function AdminProductsPage() {
                 <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase hidden lg:table-cell">Listed By</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase hidden xl:table-cell">Preview Checkout</th>
                 <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase hidden lg:table-cell">Featured</th>
+                <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase hidden lg:table-cell">GMC</th>
                 <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase hidden lg:table-cell">Stock</th>
                 <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
               </tr>
@@ -1226,6 +1304,11 @@ export default function AdminProductsPage() {
                             <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-[#090A28]/10 text-[#1c2070] text-[10px] font-medium rounded">
                               <Star className="h-2.5 w-2.5 fill-[#1c2070]" />
                               Featured
+                            </span>
+                          )}
+                          {isGmcEnabled(product) && (
+                            <span className="inline-flex items-center px-1.5 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-semibold rounded">
+                              GMC
                             </span>
                           )}
                           {product.inStock === false && (
@@ -1335,6 +1418,22 @@ export default function AdminProductsPage() {
                         <Star className={`h-3 w-3 ${(product.isFeatured || product.is_featured) ? 'fill-[#030B19]' : ''}`} />
                       )}
                       {(product.isFeatured || product.is_featured) ? 'Featured' : 'Feature'}
+                    </button>
+                  </td>
+                  <td className="px-4 py-3 text-center hidden lg:table-cell">
+                    <button
+                      type="button"
+                      onClick={() => handleToggleGmc(product.slug)}
+                      disabled={togglingGmc === product.slug}
+                      aria-pressed={isGmcEnabled(product)}
+                      className={`inline-flex min-w-[72px] items-center justify-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors disabled:opacity-60 ${isGmcEnabled(product)
+                        ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                        }`}
+                      title={isGmcEnabled(product) ? 'Remove product from Google Merchant Center feed' : 'Add product to Google Merchant Center feed'}
+                    >
+                      {togglingGmc === product.slug && <RefreshCw className="h-3 w-3 animate-spin" />}
+                      GMC
                     </button>
                   </td>
                   <td className="px-4 py-3 text-center hidden lg:table-cell">
@@ -1459,6 +1558,26 @@ export default function AdminProductsPage() {
                                 <Star className={`h-4 w-4 ${(product.isFeatured || product.is_featured) ? 'text-[#030B19] fill-[#030B19]' : 'text-gray-400'}`} />
                               )}
                               <span>{(product.isFeatured || product.is_featured) ? 'Unfeature Product' : 'Feature Product'}</span>
+                            </button>
+
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleToggleGmc(product.slug);
+                                setOpenDropdown(null);
+                              }}
+                              disabled={togglingGmc === product.slug}
+                              aria-pressed={isGmcEnabled(product)}
+                              className="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              {togglingGmc === product.slug ? (
+                                <RefreshCw className="h-4 w-4 text-blue-600 animate-spin" />
+                              ) : (
+                                <span className={`flex h-4 min-w-8 items-center justify-center rounded px-1 text-[9px] font-bold ${isGmcEnabled(product) ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
+                                  GMC
+                                </span>
+                              )}
+                              <span>{isGmcEnabled(product) ? 'Remove from GMC' : 'Add to GMC'}</span>
                             </button>
 
                             <button

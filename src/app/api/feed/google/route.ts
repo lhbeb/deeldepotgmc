@@ -23,6 +23,7 @@ export async function GET() {
     }
 
     const itemsXml = products
+      .filter((product) => product.meta?.gmc_enabled === true)
       .map((p) => {
         const sku = formatValidSku(p);
         const title = escapeXml(p.title || 'Product');
@@ -86,7 +87,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/xml; charset=utf-8',
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+        'Cache-Control': 'no-store, max-age=0',
       },
     });
   } catch (error) {
