@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getProductBySlug, updateProduct, getProducts } from '@/lib/supabase/products';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
+import { FEATURED_PRODUCT_LIMIT } from '@/config/products';
 
-const FEATURE_LIMIT = 6;
+const FEATURE_LIMIT = FEATURED_PRODUCT_LIMIT;
 
 // Helper to get auth from request
 async function getAdminAuth(request: NextRequest) {
@@ -163,4 +164,3 @@ export async function POST(
     );
   }
 }
-

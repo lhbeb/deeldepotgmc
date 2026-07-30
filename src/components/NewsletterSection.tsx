@@ -62,11 +62,11 @@ const NewsletterSection = () => {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Join the Deel Depot Insider List
+            Join the Deel Depot Outdoor List
           </h2>
 
           <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Get first access to premium open-box and like-new deals before they sell out. Zero spam, just real savings on top-quality finds.
+            Get early access to new lawn mowers, garden equipment, power tools, and limited-time offers. Useful updates for your next project—never inbox clutter.
           </p>
 
           <form onSubmit={handleSubmit} className="max-w-md mx-auto">
@@ -79,7 +79,7 @@ const NewsletterSection = () => {
                     setEmail(e.target.value);
                     if (error) setError('');
                   }}
-                  placeholder="Enter your email address"
+                  placeholder="Your email address"
                   className="w-full px-4 py-3 rounded-lg border-0 text-[#262626] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#030B19] transition-all duration-200"
                   disabled={isSubmitting || isSuccess}
                 />
@@ -93,16 +93,16 @@ const NewsletterSection = () => {
                 {isSubmitting ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#030B19]"></div>
-                    Subscribing...
+                    Signing Up...
                   </>
                 ) : isSuccess ? (
                   <>
                     <Check className="h-5 w-5" />
-                    Subscribed!
+                    You&apos;re In!
                   </>
                 ) : (
                   <>
-                    Subscribe
+                    Get Early Access
                     <ArrowRight className="h-5 w-5" />
                   </>
                 )}
@@ -127,7 +127,7 @@ const NewsletterSection = () => {
           </form>
 
           <p className="text-white/60 text-sm mt-6 opacity-80">
-            We respect your privacy. Unsubscribe at any time.
+            Project-ready updates only. Unsubscribe anytime.
           </p>
         </div>
       </div>

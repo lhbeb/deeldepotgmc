@@ -12,6 +12,8 @@ import {
 import ImageUploader, { ImageUploaderRef, UploadStatus } from '@/components/admin/ImageUploader';
 import AdminLayout from '@/components/AdminLayout';
 import AdminLoading from '@/components/AdminLoading';
+import { FEATURED_PRODUCT_LIMIT } from '@/config/products';
+import { PRODUCT_COLLECTION_OPTIONS } from '@/lib/productCollections';
 import { PRODUCT_CONDITIONS, normalizeConditionValue } from '@/lib/conditions';
 
 const slugify = (value: string) =>
@@ -111,7 +113,7 @@ function Field({
 }
 
 export default function NewProductPage() {
-  const FEATURE_LIMIT = 18;
+  const FEATURE_LIMIT = FEATURED_PRODUCT_LIMIT;
   const router = useRouter();
   const imageUploaderRef = useRef<ImageUploaderRef>(null);
   const [loading, setLoading] = useState(false);
@@ -914,12 +916,7 @@ export default function NewProductPage() {
                 </div>
               )}
               <div className="space-y-2">
-                {[
-                  { value: 'electronics', label: 'Electronics' },
-                  { value: 'fashion', label: 'Fashion' },
-                  { value: 'entertainment', label: 'Entertainment' },
-                  { value: 'hobbies-collectibles', label: 'Hobbies & Collectibles' },
-                ].map((collection) => (
+                {PRODUCT_COLLECTION_OPTIONS.map((collection) => (
                   <label key={collection.value} className="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded-lg">
                     <input
                       type="checkbox"

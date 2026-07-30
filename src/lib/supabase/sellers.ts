@@ -76,6 +76,25 @@ function shuffleReviews(reviews: Review[]): Review[] {
   return shuffled;
 }
 
+function isLawnMowerText(value: unknown): boolean {
+  return typeof value === 'string' && /\bmowers?\b/i.test(value);
+}
+
+function isLawnMowerReview(review: Review): boolean {
+  return isLawnMowerText(review.productTitle) || isLawnMowerText(review.productSlug);
+}
+
+function shouldIncludeNativeSellerReview(review: Review): boolean {
+  const hasProductReference = [review.productTitle, review.productSlug].some(
+    (value) => typeof value === 'string' && value.trim().length > 0,
+  );
+
+  // Seller-level reviews are commonly stored without a product reference. Keep
+  // those reviews in the store feed, while continuing to reject reviews that
+  // are explicitly tagged to a non-lawn-mower legacy product.
+  return !hasProductReference || isLawnMowerReview(review);
+}
+
 export async function getHomeReviewsFeed(limit: number = 6): Promise<{
   reviews: Review[];
   averageRating: number;
@@ -95,14 +114,26 @@ export async function getHomeReviewsFeed(limit: number = 6): Promise<{
     const sellerRows = sellersResult.data || [];
     const productRows = productsResult.data || [];
 
-    const nativeSellerReviews = sellerRows.flatMap((seller) =>
-      Array.isArray(seller.reviews) ? (seller.reviews as Review[]) : [],
-    );
+    const nativeSellerReviews = sellerRows
+      .flatMap((seller) =>
+        Array.isArray(seller.reviews) ? (seller.reviews as Review[]) : [],
+      )
+      .filter(shouldIncludeNativeSellerReview);
 
     const publishedProductReviews = productRows
       .map((row) => transformProduct(row))
-      .filter((product) => product.published !== false)
-      .flatMap((product) => (Array.isArray(product.reviews) ? product.reviews : []));
+      .filter(
+        (product) =>
+          product.published !== false &&
+          [product.title, product.slug, product.category].some(isLawnMowerText),
+      )
+      .flatMap((product) =>
+        (Array.isArray(product.reviews) ? product.reviews : []).map((review) => ({
+          ...review,
+          productTitle: review.productTitle || product.title,
+          productSlug: review.productSlug || product.slug,
+        })),
+      );
 
     const allReviews = [...nativeSellerReviews, ...publishedProductReviews].filter(
       (review): review is Review =>
@@ -110,7 +141,6 @@ export async function getHomeReviewsFeed(limit: number = 6): Promise<{
           review &&
           review.id &&
           review.author &&
-          review.title &&
           review.content &&
           typeof review.rating === 'number',
         ),

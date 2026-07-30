@@ -104,7 +104,7 @@ const CookiesPage = () => (
           <div className="bg-gray-50 rounded-lg p-6 space-y-3">
             <div>
               <div className="font-medium text-[#262626] mb-1">Phone:</div>
-              <div className="text-gray-600">+1 318 657 4299</div>
+              <div className="text-gray-600">+19129231747</div>
             </div>
             <div>
               <div className="font-medium text-[#262626] mb-1">Email:</div>
@@ -112,7 +112,7 @@ const CookiesPage = () => (
             </div>
             <div>
               <div className="font-medium text-[#262626] mb-1">Address:</div>
-              <div className="text-gray-600">415 Codoni Ave, Modesto, CA 95357, USA</div>
+              <div className="text-gray-600">1249 Coney Island Ave, Brooklyn, NY 11230, United States</div>
             </div>
             <div>
               <div className="font-medium text-[#262626] mb-1">Hours:</div>

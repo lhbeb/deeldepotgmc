@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import AdminLayout from '@/components/AdminLayout';
 import AdminLoading from '@/components/AdminLoading';
+import { FEATURED_PRODUCT_LIMIT } from '@/config/products';
 
 interface Product {
   id: string;
@@ -58,7 +59,7 @@ export default function AdminProductsPage() {
   const [exportingGoogleCSV, setExportingGoogleCSV] = useState(false);
   const [exportingJSON, setExportingJSON] = useState(false);
   const [adminRole, setAdminRole] = useState<string | null>(null);
-   const FEATURE_LIMIT = 18;
+  const FEATURE_LIMIT = FEATURED_PRODUCT_LIMIT;
   const itemsPerPage = 12;
 
   const fetchProducts = useCallback(async () => {

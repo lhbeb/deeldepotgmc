@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 
 
@@ -67,19 +68,16 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-[420px] md:min-h-[385px] overflow-hidden bg-white">
-
-      {/* Content Container */}
-      <div className="container mx-auto px-4 py-8 md:py-10 relative z-10">
-        <div className="flex flex-col md:flex-row items-center min-h-[320px] md:min-h-[315px]">
-
-          {/* Blue Card Overlay - Left Side */}
-          <div className="w-full max-w-[340px] md:max-w-[420px] lg:max-w-[450px] bg-[#030B19] rounded-xl shadow-xl p-5 md:p-6 lg:p-8 md:ml-4 lg:ml-12">
+    <section className="relative overflow-hidden bg-white">
+      <div className="container relative z-10 mx-auto px-4 py-8 md:py-10">
+        <div className="mx-auto grid w-full max-w-7xl overflow-hidden rounded-xl shadow-xl md:min-h-[420px] md:grid-cols-[0.9fr_1.1fr] md:items-stretch">
+          {/* Content panel */}
+          <div className="order-2 flex w-full flex-col justify-center bg-[#030B19] p-6 sm:p-8 md:order-1 md:p-10 lg:p-12">
             {/* Heading with typing animation - PRESERVED */}
-            <h1 className="text-2xl md:text-3xl lg:text-[32px] font-bold text-[#F0F6FF] leading-tight">
+            <h1 className="max-w-[620px] text-2xl font-bold leading-tight text-[#F0F6FF] md:text-3xl lg:text-[38px]">
               <span
                 ref={typingTextRef}
-                className="block text-[#F0F6FF] h-[1.2em] mb-1"
+                className="mb-1 block h-[1.2em] text-[#F0F6FF]"
               >
                 {placeholder}
               </span>
@@ -89,22 +87,34 @@ const Hero = () => {
             </h1>
 
             {/* Description - PRESERVED content */}
-            <p className="mt-3 text-sm md:text-base text-[#F0F6FF]/90 leading-relaxed">
+            <p className="mt-4 max-w-[580px] text-sm leading-relaxed text-[#F0F6FF]/90 md:text-base">
               Discover reliable garden essentials, durable power tools, portable generators, and ride mowers designed to handle every task with strength and performance.
             </p>
 
             {/* Shop Now Button - PRESERVED href */}
             <a
               href="#products"
-              className="mt-5 inline-flex items-center justify-center px-6 py-2.5 bg-[#f5970c] text-[#030B19] text-sm font-medium rounded-lg shadow-md hover:bg-[#f5970c]/90 transition-all duration-300"
+              className="mt-6 inline-flex w-fit items-center justify-center rounded-lg bg-[#f5970c] px-7 py-3 text-sm font-medium text-[#030B19] shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f5970c]/90 hover:shadow-lg"
             >
               Shop Now
             </a>
           </div>
 
+          {/* Image panel — equal height to the content panel on desktop */}
+          <div className="relative order-1 min-h-[280px] overflow-hidden md:order-2 md:min-h-0">
+            <Image
+              src="/mower2.png"
+              alt="Lawn mower in use on a landscaped yard"
+              fill
+              priority
+              sizes="(max-width: 767px) 100vw, 45vw"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030B19]/25 via-transparent to-transparent" aria-hidden="true" />
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

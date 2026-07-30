@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import https from 'https';
 import http from 'http';
+import { getCollectionsForCategory } from '../src/lib/productCollections';
 
 const envPath = path.resolve(process.cwd(), '.env.local');
 if (fs.existsSync(envPath)) {
@@ -100,15 +101,6 @@ function extractBrand(title: string): string {
   return 'Xavlyin';
 }
 
-function mapCategoryToCollection(category: string): string[] {
-  const cat = category.toLowerCase();
-  if (cat.includes('lawn mower') || cat.includes('lawnmower') || cat.includes('string trimmer') || cat.includes('trimmer') || cat.includes('blower') || cat.includes('blowers')) return ['lawn-garden'];
-  if (cat.includes('bike') || cat.includes('bicycle') || cat.includes('ebike') || cat.includes('e-bike') || cat.includes('scooter') || cat.includes('scooters')) return ['lawn-garden'];
-  if (cat.includes('tent') || cat.includes('tents') || cat.includes('pool') || cat.includes('pools') || cat.includes('swimming')) return ['lawn-garden'];
-  if (cat.includes('pressure washer') || cat.includes('vacuum') || cat.includes('power') || cat.includes('generator') || cat.includes('tool') || cat.includes('hardware')) return ['power-tools'];
-  return ['lawn-garden'];
-}
-
 function cleanHtmlEntities(text: string): string {
   return text
     .replace(/&#\d+;/g, '')
@@ -163,7 +155,7 @@ async function importProducts(csvPath: string) {
     try {
       const brand = extractBrand(title);
       const mainCategory = categories.split(';')[0].trim();
-      const collections = mapCategoryToCollection(mainCategory);
+      const collections = getCollectionsForCategory(mainCategory);
 
       // Download and upload image
       let resolvedImageUrl = '';

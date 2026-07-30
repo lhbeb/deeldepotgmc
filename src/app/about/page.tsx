@@ -51,21 +51,21 @@ export default function AboutPage() {
         'description':
           'US-based ecommerce store offering lawn mowers, power tools, portable generators, and garden essentials.',
         'email': 'contact@deeldepot.com',
-        'telephone': ['+1 318 657 4299'],
+        'telephone': ['+19129231747'],
         'address': [
           {
             '@type': 'PostalAddress',
-            'streetAddress': '415 Codoni Ave',
-            'addressLocality': 'Modesto',
-            'addressRegion': 'CA',
-            'postalCode': '95357',
+            'streetAddress': '1249 Coney Island Ave',
+            'addressLocality': 'Brooklyn',
+            'addressRegion': 'NY',
+            'postalCode': '11230',
             'addressCountry': 'US',
           },
         ],
         'contactPoint': [
           {
             '@type': 'ContactPoint',
-            'telephone': '+1 318 657 4299',
+            'telephone': '+19129231747',
             'contactType': 'customer service',
             'areaServed': ['US', 'CA'],
             'availableLanguage': ['en'],
@@ -106,10 +106,10 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4 text-base leading-7 text-gray-700">
               <p>
-                Deel Depot operates out of Modesto, California, serving customers across the United States. Our central warehouse and fulfillment operations are designed to get your order to you fast.
+                Deel Depot operates out of Brooklyn, New York, serving customers across the United States. Our central warehouse and fulfillment operations are designed to get your order to you fast.
               </p>
               <p>
-                Eligible products can be collected locally from our Modesto location. Our team confirms the available pickup address and collection time for each order before you travel.
+                Eligible products can be collected locally from our Brooklyn location. Our team confirms the available pickup address and collection time for each order before you travel.
               </p>
               <Link href="/local-pickup" className="inline-flex font-semibold text-[#030B19] hover:text-[#0a0f32] hover:underline">
                 View the local pickup guide
@@ -394,7 +394,7 @@ export default function AboutPage() {
                 <MapPin className="h-5 w-5 text-[#030B19]" />
                 <div className="font-medium text-[#262626]">United States location</div>
               </div>
-              <div className="text-gray-600 ml-8">415 Codoni Ave, Modesto, CA 95357, USA</div>
+              <div className="text-gray-600 ml-8">1249 Coney Island Ave, Brooklyn, NY 11230, United States</div>
             </div>
             <div className="bg-[#F0F6FF] rounded-xl p-6 border border-[#030B19]/10">
               <div className="flex items-center gap-3 mb-3">
@@ -403,8 +403,8 @@ export default function AboutPage() {
               </div>
               <div className="ml-8 space-y-3 text-gray-600">
                 <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-1">
-                  <a href="tel:+13186574299" className="whitespace-nowrap hover:text-[#030B19] transition-colors">
-                    +1 318 657 4299
+                  <a href="tel:+19129231747" className="whitespace-nowrap hover:text-[#030B19] transition-colors">
+                    +19129231747
                   </a>
                 </div>
               </div>

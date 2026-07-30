@@ -24,8 +24,8 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center">
                 <Phone className="h-5 w-5 shrink-0 text-[#f5970c] mr-2" />
-                <a href="tel:+13186574299" className="hover:text-[#f5970c] transition-colors duration-300">
-                  <span className="font-semibold">United States:</span> +1 318 657 4299
+                <a href="tel:+19129231747" className="hover:text-[#f5970c] transition-colors duration-300">
+                  <span className="font-semibold">United States:</span> +19129231747
                 </a>
               </div>
               <div className="flex items-center">
@@ -38,7 +38,7 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 shrink-0 text-[#f5970c] mr-2 mt-1" />
                 <div>
                   <span className="block font-semibold text-white">United States</span>
-                  <span>415 Codoni Ave, Modesto, CA 95357, USA</span>
+                  <span>1249 Coney Island Ave, Brooklyn, NY 11230, United States</span>
                 </div>
               </div>
               <div className="pt-2 flex gap-3">
@@ -83,7 +83,6 @@ const Footer = () => {
               <li><Link href="/" className="hover:text-[#f5970c] transition-colors duration-300">Home</Link></li>
               <li><Link href="/#products" className="hover:text-[#f5970c] transition-colors duration-300">Products</Link></li>
               <li><Link href="/#featured" className="hover:text-[#f5970c] transition-colors duration-300">Featured</Link></li>
-              <li><Link href="/sell" className="hover:text-[#f5970c] transition-colors duration-300">Sell on Deel Depot</Link></li>
               <li><Link href="/track" className="hover:text-[#f5970c] transition-colors duration-300">Track Order</Link></li>
               <li><Link href="/contact" className="hover:text-[#f5970c] transition-colors duration-300">Contact Us</Link></li>
             </ul>
@@ -95,6 +94,7 @@ const Footer = () => {
               <li><Link href="/privacy-policy" className="hover:text-[#f5970c] transition-colors duration-300">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-[#f5970c] transition-colors duration-300">Terms of Service</Link></li>
               <li><Link href="/about" className="hover:text-[#f5970c] transition-colors duration-300">About Us</Link></li>
+              <li><Link href="/frequently-asked-questions" className="hover:text-[#f5970c] transition-colors duration-300">FAQs</Link></li>
               <li><Link href="/return-policy" className="hover:text-[#f5970c] transition-colors duration-300">Refund & Return Policy</Link></li>
               <li><Link href="/shipping-policy" className="hover:text-[#f5970c] transition-colors duration-300">Shipping Policy</Link></li>
               <li><Link href="/local-pickup" className="hover:text-[#f5970c] transition-colors duration-300">Local Pickup Guide</Link></li>

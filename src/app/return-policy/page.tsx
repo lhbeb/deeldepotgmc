@@ -174,7 +174,7 @@ export default function ReturnPolicyPage() {
             <p>All returns are handled <strong>by mail</strong>. Here&apos;s how it works:</p>
             <ol className="list-decimal pl-6 space-y-3">
               <li>
-                <strong>Contact us</strong> at <a href="mailto:contact@deeldepot.com" className="text-blue-600 hover:underline font-semibold">contact@deeldepot.com</a> or call <span className="font-semibold">+1 318 657 4299</span>.
+                <strong>Contact us</strong> at <a href="mailto:contact@deeldepot.com" className="text-blue-600 hover:underline font-semibold">contact@deeldepot.com</a> or call <span className="font-semibold">+19129231747</span>.
               </li>
               <li>
                 <strong>Use the return label</strong> included in your original package, or we&apos;ll email you a replacement if needed.
@@ -240,7 +240,7 @@ export default function ReturnPolicyPage() {
                   <span>Phone</span>
                 </div>
                 <div className="text-sm text-gray-600 pl-7 space-y-1">
-                  <div><strong className="text-gray-900">US:</strong> +1 318 657 4299</div>
+                  <div><strong className="text-gray-900">US:</strong> +19129231747</div>
                 </div>
 
                 <div className="flex items-center gap-2 font-bold text-[#090A28] pt-2">
@@ -260,7 +260,7 @@ export default function ReturnPolicyPage() {
                 <div className="text-sm text-gray-600 pl-7 space-y-2">
                   <div>
                     <strong className="text-gray-900 block">US Warehouse:</strong>
-                    415 Codoni Ave, Modesto, CA 95357, USA
+                    1249 Coney Island Ave, Brooklyn, NY 11230, United States
                   </div>
                 </div>
               </div>

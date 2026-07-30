@@ -18,6 +18,7 @@ import type { Product } from '@/types/product';
 import Image from 'next/image';
 import { getConditionDisplayLabel, getConditionTooltip } from '@/lib/conditions';
 import { getMarket, formatMarketPrice } from '@/lib/markets';
+import { STORE_FAQS } from '@/lib/storeFaqs';
 
 interface ProductPageClientProps {
   product: Product | null;
@@ -61,20 +62,7 @@ export default function ProductPageClient({ product: initialProduct }: ProductPa
     }
   }, [product]);
 
-  const faqItems = useMemo(() => {
-    const market = getMarket(product?.meta?.targetMarket);
-    return [
-      { question: "Are these items new or pre-owned?", answer: "We offer both. The exact condition is shown on every listing, so you can quickly tell whether the item is brand new, open box, gently used, or more heavily used before you buy." },
-      { question: "Is local pickup available?", answer: "Yes, local pickup is available for eligible items.", linkHref: "/local-pickup", linkLabel: "Read the Local Pickup Guide." },
-      { question: "Do products come with a warranty?", answer: "Brand-new items may include a manufacturer warranty. Pre-owned items are covered by our 30-day Deel Depot Guarantee for returns or exchanges unless a listing clearly states otherwise." },
-      { question: "Can I return an item if it is not right for me?", answer: "Yes. We offer a 30-day return window. If something feels off, contact us at +1 318 657 4299 or contact@deeldepot.com and we’ll help you sort it out." },
-      { question: "How long does shipping usually take?", answer: market.faqShippingAnswer },
-      { question: "Do you offer free shipping?", answer: market.faqFreeShippingAnswer },
-      { question: "Are pre-owned electronics tested?", answer: "Yes. Our second-hand electronics go through a multi-point inspection and are expected to be fully functional unless a listing specifically tells you otherwise." },
-      { question: "Are the product photos accurate?", answer: "Yes. For used items, we aim to show the actual product you’re buying. For new items, images are either the exact item or a very close representation." },
-      { question: "How can I reach support quickly?", answer: "You can call +1 318 657 4299 or email contact@deeldepot.com. We’re available Monday to Friday, 9:00 AM to 5:00 PM EST, and Saturday from 10:00 AM to 3:00 PM EST." }
-    ];
-  }, [product?.meta?.targetMarket]);
+  const faqItems = STORE_FAQS;
 
   const parsedMensSizes = useMemo(() => {
     const raw = product?.meta?.sizes_mens || product?.meta?.sizes;

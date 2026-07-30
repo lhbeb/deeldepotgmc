@@ -122,10 +122,10 @@ export default function RootLayout({
                 },
                 "address": {
                   "@type": "PostalAddress",
-                  "streetAddress": "415 Codoni Ave",
-                  "addressLocality": "Modesto",
-                  "addressRegion": "CA",
-                  "postalCode": "95357",
+                  "streetAddress": "1249 Coney Island Ave",
+                  "addressLocality": "Brooklyn",
+                  "addressRegion": "NY",
+                  "postalCode": "11230",
                   "addressCountry": "USA"
                 }
               })

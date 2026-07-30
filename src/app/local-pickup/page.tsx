@@ -4,7 +4,7 @@ import { Clock3, MapPin, PackageCheck, ShieldCheck } from 'lucide-react';
 const pickupSteps = [
   {
     title: 'Place your order first',
-    body: 'Choose your item online and complete checkout before heading to either of our pickup locations.',
+    body: 'Choose your item online and complete checkout before heading to our pickup location.',
     icon: PackageCheck,
   },
   {
@@ -32,7 +32,7 @@ export default function LocalPickupPage() {
               Pick up your Deel Depot order with confidence
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-[#D9E6FF] sm:text-base">
-              Eligible outdoor power equipment and garden products can be collected from our location in Modesto, California. This page covers what to expect, what to bring, and how collection works once your order is ready.
+              Eligible outdoor power equipment and garden products can be collected from our location in Brooklyn, New York. This page covers what to expect, what to bring, and how collection works once your order is ready.
             </p>
           </section>
 
@@ -99,15 +99,15 @@ export default function LocalPickupPage() {
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h2 className="text-lg font-semibold text-[#262626]">Pickup locations</h2>
+                    <h2 className="text-lg font-semibold text-[#262626]">Pickup location</h2>
                     <div className="mt-4 space-y-4 text-sm leading-7 text-[#5B6785]">
                       <address className="not-italic">
                         <span className="block font-semibold text-[#262626]">United States</span>
-                        415 Codoni Ave
+                        1249 Coney Island Ave
                         <br />
-                        Modesto, CA 95357
+                        Brooklyn, NY 11230
                         <br />
-                        USA
+                        United States
                       </address>
 
                     </div>

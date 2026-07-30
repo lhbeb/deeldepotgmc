@@ -13,6 +13,11 @@ type SortOption = "featured" | "price-high" | "price-low" | "rating";
 
 interface ProductGridProps {
   products: Product[];
+  sectionId?: string;
+  editorialCard?: {
+    title: string;
+    description: string;
+  };
   showHeader?: boolean;
   title?: string;
   randomizeForVisitor?: boolean;
@@ -81,6 +86,8 @@ function applySorting(products: Product[], sortBy: SortOption, customSeed?: numb
 
 const ProductGrid = ({
   products,
+  sectionId = "products",
+  editorialCard,
   showHeader = true,
   title = "Endless accessories. Epic prices.",
   randomizeForVisitor = false,
@@ -171,12 +178,25 @@ const ProductGrid = ({
     return applySorting(result, sortBy, visitorShuffleSeed);
   }, [products, searchQuery, selectedBrands, selectedConditions, priceRange, sortBy, visitorShuffleSeed]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE));
+  const editorialSlots = editorialCard ? 2 : 0;
+  const firstPageProductCount = ITEMS_PER_PAGE - editorialSlots;
+  const totalPages = Math.max(
+    1,
+    editorialCard
+      ? Math.ceil((filteredProducts.length + editorialSlots) / ITEMS_PER_PAGE)
+      : Math.ceil(filteredProducts.length / ITEMS_PER_PAGE),
+  );
   const paginatedProducts = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    if (editorialCard && currentPage === 1) {
+      return filteredProducts.slice(0, firstPageProductCount);
+    }
+
+    const startIndex = editorialCard
+      ? firstPageProductCount + (currentPage - 2) * ITEMS_PER_PAGE
+      : (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     return filteredProducts.slice(startIndex, endIndex);
-  }, [filteredProducts, currentPage]);
+  }, [filteredProducts, currentPage, editorialCard, firstPageProductCount]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -235,7 +255,7 @@ const ProductGrid = ({
   };
 
   return (
-    <div id="products" ref={productsRef} className="py-12 bg-gray-100">
+    <div id={sectionId} ref={productsRef} className="py-12 bg-gray-100">
       <div className="container mx-auto px-4">
         <div className="w-full max-w-7xl mx-auto">
           {showHeader && filterPanelOpen ? (
@@ -537,6 +557,27 @@ const ProductGrid = ({
             ) : (
               <>
                 <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                  {editorialCard && currentPage === 1 && (
+                    <article className="relative col-span-2 flex min-h-[360px] overflow-hidden rounded-md bg-[#030B19] p-6 text-[#F0F6FF] shadow-sm sm:min-h-[420px] sm:p-8 lg:min-h-0">
+                      <div
+                        aria-hidden="true"
+                        className="absolute -right-20 -top-24 h-64 w-64 rounded-full border-[48px] border-[#f5970c]/10"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-[#f5970c] via-[#f5970c]/30 to-transparent"
+                      />
+                      <div className="relative z-10 flex h-full max-w-2xl flex-col justify-center">
+                        <div className="mb-6 h-1 w-12 rounded-full bg-[#f5970c]" />
+                        <h3 className="max-w-xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+                          {editorialCard.title}
+                        </h3>
+                        <p className="mt-5 max-w-xl text-sm leading-7 text-[#F0F6FF]/75 sm:text-base sm:leading-8">
+                          {editorialCard.description}
+                        </p>
+                      </div>
+                    </article>
+                  )}
                   {paginatedProducts.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}

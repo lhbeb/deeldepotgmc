@@ -411,7 +411,9 @@ const HomeReviews: React.FC<HomeReviewsProps> = ({
                     </div>
                   </div>
 
-                  <h4 className="font-medium text-[#262626] mb-2 text-sm">{review.title}</h4>
+                  {review.title && (
+                    <h4 className="font-medium text-[#262626] mb-2 text-sm">{review.title}</h4>
+                  )}
                   <p className="text-gray-600 text-sm line-clamp-4 mb-3">{review.content}</p>
                   
                   {/* Review Images Gallery */}

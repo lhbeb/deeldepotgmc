@@ -9,9 +9,14 @@ import type { Product } from '@/types/product';
 interface ProductCardProps {
   product: Product;
   cardBackground?: string;
+  showFullImage?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, cardBackground = 'bg-white' }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  cardBackground = 'bg-white',
+  showFullImage = false,
+}) => {
   const { slug, title, price, images, inStock } = product;
   const isSoldOut = inStock === false;
   const [imgLoaded, setImgLoaded] = React.useState(false);
@@ -19,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, cardBackground = 'bg
   return (
     <div className={`${cardBackground} rounded-md shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col`}>
       <Link href={`/products/${slug}`} className="block">
-        <div className="relative w-full h-48">
+        <div className={`relative w-full bg-white ${showFullImage ? 'aspect-square' : 'h-48'}`}>
           {!imgLoaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse rounded-t-md z-10">
               <div className="h-12 w-12 bg-gray-300 rounded-full" />
@@ -29,8 +34,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, cardBackground = 'bg
             src={images[0]}
             alt={title}
             fill
-            className={`object-cover rounded-t-md transition-opacity duration-300 ${imgLoaded ? 'opacity-100' : 'opacity-0'} ${isSoldOut ? 'opacity-50' : ''}`}
-            sizes="(max-width: 768px) 50vw, 33vw"
+            className={`${showFullImage ? 'object-contain p-3 sm:p-5' : 'object-cover'} rounded-t-md transition-opacity duration-300 ${imgLoaded ? 'opacity-100' : 'opacity-0'} ${isSoldOut ? 'opacity-50' : ''}`}
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             loading="lazy"
             unoptimized
             onLoad={() => setImgLoaded(true)}

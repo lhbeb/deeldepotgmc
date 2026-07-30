@@ -74,11 +74,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ open, onClose }) => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for products..."
+            placeholder="Search for items..."
             className="bg-transparent outline-none border-0 flex-1 min-w-0 text-[#262626] placeholder-gray-400 text-lg"
             autoFocus={open}
             onKeyDown={handleKeyDown}
-            aria-label="Search for products"
+            aria-label="Search for items"
           />
           {query.length > 0 && (
             <ArrowRight className="h-5 w-5 text-[#090A28] animate-bounce-x ml-1" aria-label="Press Enter to search" />
@@ -99,11 +99,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ open, onClose }) => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for products..."
+            placeholder="Search for items..."
             className="bg-transparent outline-none border-0 flex-1 min-w-0 text-[#262626] placeholder-gray-400 text-lg"
             autoFocus={open}
             onKeyDown={handleKeyDown}
-            aria-label="Search for products"
+            aria-label="Search for items"
           />
           {query.length > 0 && (
             <ArrowRight className="h-5 w-5 text-[#090A28] animate-bounce-x ml-1" aria-label="Press Enter to search" />
@@ -117,4 +117,4 @@ const SearchBar: React.FC<SearchBarProps> = ({ open, onClose }) => {
   ) : null;
 };
 
-export default SearchBar; 
+export default SearchBar;

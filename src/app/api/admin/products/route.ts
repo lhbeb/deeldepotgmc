@@ -8,8 +8,9 @@ import {
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { authenticateAdmin } from '@/lib/supabase/auth';
+import { FEATURED_PRODUCT_LIMIT } from '@/config/products';
 
-const FEATURE_LIMIT = 6;
+const FEATURE_LIMIT = FEATURED_PRODUCT_LIMIT;
 
 async function assertFeaturedLimit(canFeature: boolean) {
   if (!canFeature) return;
@@ -189,4 +190,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

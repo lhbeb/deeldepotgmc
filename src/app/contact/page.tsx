@@ -1,5 +1,5 @@
 "use client";
-// Updated UK Registered Business Office and GMC support details
+// Registered business office and GMC support details
 
 import { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
@@ -36,11 +36,11 @@ export default function ContactPage() {
         'name': 'Deel Depot',
         'url': 'https://www.deeldepot.com',
         'email': 'contact@deeldepot.com',
-        'telephone': ['+1 318 657 4299'],
+        'telephone': ['+19129231747'],
         'contactPoint': [
           {
             '@type': 'ContactPoint',
-            'telephone': '+1 318 657 4299',
+            'telephone': '+19129231747',
             'contactType': 'customer service',
             'areaServed': ['US', 'CA'],
             'availableLanguage': ['en'],
@@ -49,10 +49,10 @@ export default function ContactPage() {
         'address': [
           {
             '@type': 'PostalAddress',
-            'streetAddress': '415 Codoni Ave',
-            'addressLocality': 'Modesto',
-            'addressRegion': 'CA',
-            'postalCode': '95357',
+            'streetAddress': '1249 Coney Island Ave',
+            'addressLocality': 'Brooklyn',
+            'addressRegion': 'NY',
+            'postalCode': '11230',
             'addressCountry': 'US',
           },
         ],
@@ -216,14 +216,14 @@ export default function ContactPage() {
                       <MapPin className="h-6 w-6 text-[#090A28] mt-1 shrink-0" />
                       <div className="ml-4">
                         <h3 className="font-medium text-[#262626]">US Warehouse & Fulfillment</h3>
-                        <p className="text-gray-600 mt-1">415 Codoni Ave, Modesto, CA 95357, USA</p>
+                        <p className="text-gray-600 mt-1">1249 Coney Island Ave, Brooklyn, NY 11230, United States</p>
                       </div>
                     </div>
                     <div className="flex items-start">
                       <Phone className="h-6 w-6 text-[#090A28] mt-1 shrink-0" />
                       <div className="ml-4">
                         <h3 className="font-medium text-[#262626]">Phone Support</h3>
-                        <p className="text-gray-600 mt-1"><span className="font-semibold">US:</span> +1 318 657 4299</p>
+                        <p className="text-gray-600 mt-1"><span className="font-semibold">US:</span> +19129231747</p>
                       </div>
                     </div>
                     <div className="flex items-start">

@@ -7,8 +7,9 @@ import {
 } from '@/lib/supabase/products';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
+import { FEATURED_PRODUCT_LIMIT } from '@/config/products';
 
-const FEATURE_LIMIT = 6;
+const FEATURE_LIMIT = FEATURED_PRODUCT_LIMIT;
 
 async function assertFeaturedLimit(canFeature: boolean) {
   if (!canFeature) return;
@@ -314,4 +315,3 @@ export async function DELETE(
     );
   }
 }
-

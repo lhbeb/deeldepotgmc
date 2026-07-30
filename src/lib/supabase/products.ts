@@ -1,6 +1,7 @@
 import 'server-only';
 import { supabaseAdmin } from './server';
 import type { Product } from '@/types/product';
+import { FEATURED_PRODUCT_LIMIT } from '@/config/products';
 import type { Review } from '@/types/product';
 
 // Transform Supabase row to Product type
@@ -303,7 +304,7 @@ export async function getFeaturedProducts(): Promise<Product[]> {
       .select('*')
       .eq('is_featured', true)
       .order('updated_at', { ascending: false })
-      .limit(18);
+      .limit(FEATURED_PRODUCT_LIMIT);
 
     if (error) {
       console.error('Error fetching featured products:', error);

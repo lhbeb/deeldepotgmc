@@ -49,18 +49,23 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     <section id="power-tools" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="w-full max-w-7xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="mb-12 text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-[#262626] mb-4">
               {title}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="max-w-2xl text-lg text-gray-600">
               {subtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {displayedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} cardBackground="bg-gray-100" />
+              <ProductCard
+                key={product.id}
+                product={product}
+                cardBackground="bg-gray-100"
+                showFullImage
+              />
             ))}
           </div>
         </div>

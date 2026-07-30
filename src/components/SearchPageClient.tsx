@@ -8,6 +8,29 @@ import { Loader2 } from "lucide-react";
 
 interface SearchPageClientProps {
   initialQuery?: string;
+  initialCategory?: string;
+}
+
+const CATALOG_CATEGORIES = [
+  "Blowers",
+  "Hardware",
+  "Lawn Mowers",
+  "Pressure Washers",
+  "Swimming Pools",
+  "Bikes",
+  "Electric Scooters",
+  "Tents",
+  "Vacuum Cleaners",
+] as const;
+
+function getExactCatalogCategory(value: string): string {
+  const normalizedValue = value.trim().toLowerCase();
+
+  return (
+    CATALOG_CATEGORIES.find(
+      (category) => category.toLowerCase() === normalizedValue,
+    ) || ""
+  );
 }
 
 /**
@@ -113,9 +136,14 @@ function advancedSearch(products: Product[], query: string): Product[] {
     .map((item) => item.product);
 }
 
-export default function SearchPageClient({ initialQuery }: SearchPageClientProps) {
+export default function SearchPageClient({ initialQuery, initialCategory }: SearchPageClientProps) {
   const searchParams = useSearchParams();
   const queryParam = searchParams.get("query") || initialQuery || "";
+  const categoryParam = searchParams.get("category") || initialCategory || "";
+  // Old and cached navbar links used `?query=Lawn Mowers`. Treat known catalog
+  // names as exact categories so accessory copy cannot leak into the results.
+  const exactCategory = categoryParam.trim() || getExactCatalogCategory(queryParam);
+  const activeTerm = exactCategory || queryParam;
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -125,15 +153,15 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
   const ITEMS_PER_PAGE = 12;
   const totalPages = Math.max(1, Math.ceil(products.length / ITEMS_PER_PAGE));
   
-  // Reset to page 1 when search query changes
+  // Reset to page 1 when the search or category changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [queryParam]);
+  }, [queryParam, exactCategory]);
 
   // Fetch and search products
   useEffect(() => {
     const fetchAndSearch = async () => {
-      if (!queryParam.trim()) {
+      if (!activeTerm.trim()) {
         setProducts([]);
         setLoading(false);
         return;
@@ -152,8 +180,13 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
 
         const allProducts: Product[] = await response.json();
 
-        // Apply advanced search algorithm
-        const filteredProducts = advancedSearch(allProducts, queryParam);
+        const filteredProducts = exactCategory
+          ? allProducts.filter(
+              (product) =>
+                String(product.category || '').trim().toLowerCase() ===
+                exactCategory.toLowerCase(),
+            )
+          : advancedSearch(allProducts, queryParam);
 
         setProducts(filteredProducts);
       } catch (err) {
@@ -166,7 +199,7 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
     };
 
     fetchAndSearch();
-  }, [queryParam]);
+  }, [queryParam, exactCategory, activeTerm]);
 
   // Paginated products
   const paginatedProducts = useMemo(() => {
@@ -180,7 +213,7 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
       <main className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-12 w-12 text-[#090A28] animate-spin mx-auto mb-4" />
-          <p className="text-gray-600 text-lg">Searching for &quot;{queryParam}&quot;...</p>
+          <p className="text-gray-600 text-lg">Loading &quot;{activeTerm}&quot;...</p>
           <p className="text-gray-500 text-sm mt-2">Finding products in our database</p>
         </div>
       </main>
@@ -198,7 +231,7 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
     );
   }
 
-  if (!queryParam.trim()) {
+  if (!activeTerm.trim()) {
     return (
       <main className="min-h-screen bg-gray-50">
         <div className="container mx-auto px-4 py-16 text-center">
@@ -213,7 +246,7 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
       {products.length === 0 ? (
         <div className="container mx-auto px-4 py-16 text-center">
           <p className="text-gray-600 text-lg mb-2">
-            No products found for &quot;{queryParam}&quot;
+            No products found for &quot;{activeTerm}&quot;
           </p>
           <p className="text-gray-500 text-sm">
             Try searching with different keywords or check your spelling
@@ -223,7 +256,7 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
         <>
           <div className="container mx-auto px-4 py-8">
             <h1 className="text-2xl font-bold text-[#262626] mb-2">
-              Search Results for &quot;{queryParam}&quot;
+              {exactCategory ? exactCategory : <>Search Results for &quot;{queryParam}&quot;</>}
             </h1>
             <p className="text-gray-600">
               Found {products.length} {products.length === 1 ? "product" : "products"}
@@ -233,7 +266,7 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
           <div className="container mx-auto px-4 pb-16">
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {paginatedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} showFullImage />
               ))}
             </div>
 
@@ -272,4 +305,3 @@ export default function SearchPageClient({ initialQuery }: SearchPageClientProps
     </main>
   );
 }
-

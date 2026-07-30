@@ -10,6 +10,15 @@ import type { Product } from '@/types/product';
 import ClientOnly from './ClientOnly';
 import SearchBar from './SearchBar';
 
+const catalogNavigation = [
+  { label: 'All', href: '/#products' },
+  { label: 'Lawn Mowers', href: '/search?category=Lawn%20Mowers' },
+  { label: 'Swimming Pools', href: '/search?category=Swimming%20Pools' },
+  { label: 'Bikes', href: '/search?category=Bikes' },
+  { label: 'Electric Scooters', href: '/search?category=Electric%20Scooters' },
+  { label: 'Tents', href: '/search?category=Tents' },
+] as const;
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -133,7 +142,7 @@ const Header = () => {
             {announcements[currentAnnouncement] === "whatsapp-contact" ? (
               <div key={currentAnnouncement} className="flex items-center justify-center animate-fade-in text-xs sm:text-sm md:text-base h-full w-full">
                 <a
-                  href="https://wa.me/13186574299"
+                  href="https://wa.me/19129231747"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 sm:gap-1.5 hover:opacity-80 transition-opacity flex-wrap justify-center"
@@ -148,7 +157,7 @@ const Header = () => {
                     style={{ filter: 'brightness(0) saturate(100%)' }}
                   />
                   <span className="whitespace-nowrap">Questions? <span className="font-bold">WhatsApp us</span></span>
-                  <span className="underline whitespace-nowrap font-bold">+1 (318) 657-4299</span>
+                  <span className="underline whitespace-nowrap font-bold">+19129231747</span>
                 </a>
               </div>
             ) : (
@@ -211,7 +220,7 @@ const Header = () => {
               >
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Search for items..."
                   className="flex-1 bg-transparent outline-none text-sm text-gray-700 placeholder-gray-500 cursor-pointer"
                   readOnly
                 />
@@ -279,7 +288,7 @@ const Header = () => {
               >
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Search for items..."
                   className="flex-1 bg-transparent outline-none text-sm text-[#030B19] placeholder-[#030B19]/60 cursor-pointer"
                   readOnly
                 />
@@ -292,27 +301,24 @@ const Header = () => {
         {/* Navigation Bar - White background with gray text */}
         <div suppressHydrationWarning={true} className="hidden lg:block bg-[#030B19] border-t border-[#F0F6FF]/15">
           <div suppressHydrationWarning={true} className="container mx-auto px-4">
-            <nav className="flex items-center gap-8 py-3 font-heading">
-              <Link href="/#products" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
-                All
-              </Link>
-              <Link href="/electronics" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
-                Electronics
-              </Link>
-              <Link href="/fashion" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
-                Fashion
-              </Link>
-              <Link href="/entertainment" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
-                Entertainment
-              </Link>
-              <Link href="/hobbies-collectibles" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
-                Hobbies & Collectibles
-              </Link>
+            <nav className="flex items-center gap-6 py-3 font-heading">
+              {catalogNavigation.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-sm font-medium text-[#F0F6FF] transition-colors duration-300 hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              ))}
               <Link href="/#featured" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
                 Featured
               </Link>
               <Link href="/track" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
                 Track Order
+              </Link>
+              <Link href="/frequently-asked-questions" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
+                FAQs
               </Link>
               <Link href="/contact" className="text-[#F0F6FF] hover:text-white font-medium text-sm transition-colors duration-300">
                 Contact us
@@ -328,6 +334,9 @@ const Header = () => {
               <nav className="flex flex-col font-heading">
                 <Link href="/track" className="text-center text-[#F0F6FF] hover:text-white font-medium transition-colors duration-300 pb-4 border-b border-[#F0F6FF]/15" onClick={handleMobileMenuClose}>
                   Track Order
+                </Link>
+                <Link href="/frequently-asked-questions" className="text-center text-[#F0F6FF] hover:text-white font-medium transition-colors duration-300 py-4 border-b border-[#F0F6FF]/15" onClick={handleMobileMenuClose}>
+                  FAQs
                 </Link>
                 <Link href="/contact" className="text-center text-[#F0F6FF] hover:text-white font-medium transition-colors duration-300 py-4 border-b border-[#F0F6FF]/15" onClick={handleMobileMenuClose}>
                   Contact Us
@@ -346,36 +355,15 @@ const Header = () => {
         <div suppressHydrationWarning={true} className="lg:hidden bg-[#030B19] border-t border-[#F0F6FF]/15">
           <div suppressHydrationWarning={true} className="overflow-x-auto scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
             <nav className="flex items-center gap-3 px-4 py-3 min-w-max">
-              <Link
-                href="/#products"
-                className="flex-shrink-0 px-4 py-2 border border-[#F0F6FF]/30 rounded-full text-sm font-medium text-[#F0F6FF] hover:border-[#F0F6FF]/50 hover:bg-[#F0F6FF]/10 transition-colors duration-300 whitespace-nowrap"
-              >
-                All
-              </Link>
-              <Link
-                href="/electronics"
-                className="flex-shrink-0 px-4 py-2 border border-[#F0F6FF]/30 rounded-full text-sm font-medium text-[#F0F6FF] hover:border-[#F0F6FF]/50 hover:bg-[#F0F6FF]/10 transition-colors duration-300 whitespace-nowrap"
-              >
-                Electronics
-              </Link>
-              <Link
-                href="/fashion"
-                className="flex-shrink-0 px-4 py-2 border border-[#F0F6FF]/30 rounded-full text-sm font-medium text-[#F0F6FF] hover:border-[#F0F6FF]/50 hover:bg-[#F0F6FF]/10 transition-colors duration-300 whitespace-nowrap"
-              >
-                Fashion
-              </Link>
-              <Link
-                href="/entertainment"
-                className="flex-shrink-0 px-4 py-2 border border-[#F0F6FF]/30 rounded-full text-sm font-medium text-[#F0F6FF] hover:border-[#F0F6FF]/50 hover:bg-[#F0F6FF]/10 transition-colors duration-300 whitespace-nowrap"
-              >
-                Entertainment
-              </Link>
-              <Link
-                href="/hobbies-collectibles"
-                className="flex-shrink-0 px-4 py-2 border border-[#F0F6FF]/30 rounded-full text-sm font-medium text-[#F0F6FF] hover:border-[#F0F6FF]/50 hover:bg-[#F0F6FF]/10 transition-colors duration-300 whitespace-nowrap"
-              >
-                Hobbies & Collectibles
-              </Link>
+              {catalogNavigation.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex-shrink-0 whitespace-nowrap rounded-full border border-[#F0F6FF]/30 px-4 py-2 text-sm font-medium text-[#F0F6FF] transition-colors duration-300 hover:border-[#F0F6FF]/50 hover:bg-[#F0F6FF]/10"
+                >
+                  {item.label}
+                </Link>
+              ))}
               <Link
                 href="/#featured"
                 className="flex-shrink-0 px-4 py-2 border border-[#F0F6FF]/30 rounded-full text-sm font-medium text-[#F0F6FF] hover:border-[#F0F6FF]/50 hover:bg-[#F0F6FF]/10 transition-colors duration-300 whitespace-nowrap"
