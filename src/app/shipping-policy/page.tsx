@@ -5,22 +5,23 @@ import { Clock, Mail, MapPin, PackageCheck, ShieldCheck, Truck } from 'lucide-re
 export const metadata: Metadata = {
   title: 'Shipping Policy | Deel Depot',
   description:
-    'Official Deel Depot Shipping Policy. Free standard shipping across the United States. Same-day processing for orders placed before 2:00 PM EST.',
+    'Official Deel Depot Shipping Policy. Free standard shipping across the United States and United Kingdom. Same-day processing for orders placed before 2:00 PM EST.',
 };
 
 const timeline = [
   ['Same-day orders', 'Ships same day when placed before 2:00 PM EST'],
   ['Standard processing', '0-1 business day'],
-  ['United States delivery', '5-8 business days'],
+  ['United States delivery', '5-9 business days (Free Standard Shipping)'],
+  ['United Kingdom delivery', '5-9 business days (Free Standard Delivery)'],
 ];
 
 const policySections = [
   {
-    title: 'Free Shipping',
+    title: 'Free Shipping (US & UK)',
     items: [
-      'Free standard shipping on all orders across the United States',
+      'Free standard shipping on all orders across the United States and United Kingdom',
       'No minimum purchase requirement',
-      'USPS or FedEx for all shipments',
+      'Tracked shipping via premium logistics partners (USPS, FedEx, Royal Mail, DHL)',
     ],
   },
   {
@@ -29,14 +30,14 @@ const policySections = [
       'Automatic shipping confirmation email upon dispatch',
       'Real-time package tracking link provided',
       'Estimated delivery date visibility',
-      'Carrier milestone email & SMS updates',
+      'Carrier milestone email updates',
     ],
   },
   {
     title: 'Shipping Destinations',
     items: [
-      'We ship across the United States',
-      'PO boxes supported for standard deliveries',
+      'We ship across all 50 US States & United Kingdom nationwide',
+      'PO boxes supported for standard US deliveries',
       'APO/FPO/DPO military addresses fully supported',
       'Discreet, eco-friendly, protective packaging',
     ],
@@ -45,7 +46,7 @@ const policySections = [
     title: 'Package Protection & Safety',
     items: [
       '100% full shipping insurance on all packages',
-      'Signature confirmation for high-value orders over $500',
+      'Signature confirmation for high-value orders over $500 / £400',
       'Weather-resistant outer mailers',
       'Protective bubble/foam layering for fragile items',
     ],
@@ -58,15 +59,15 @@ export default function ShippingPolicyPage() {
     '@graph': [
       {
         '@type': 'WebPage',
-        '@id': 'https://www.deeldepot.com/shipping-policy',
-        'url': 'https://www.deeldepot.com/shipping-policy',
+        '@id': 'https://deeldepot.com/shipping-policy',
+        'url': 'https://deeldepot.com/shipping-policy',
         'name': 'Shipping Policy | Deel Depot',
         'description':
-          'Deel Depot Shipping Policy: Free standard shipping across the United States. Same-day processing for orders placed before 2:00 PM EST.',
+          'Deel Depot Shipping Policy: Free standard shipping across the United States and United Kingdom. Same-day processing for orders placed before 2:00 PM EST.',
       },
       {
         '@type': 'OfferShippingDetails',
-        '@id': 'https://www.deeldepot.com/shipping-policy#shipping-us',
+        '@id': 'https://deeldepot.com/shipping-policy#shipping-us',
         'shippingDestination': {
           '@type': 'DefinedRegion',
           'addressCountry': 'US',
@@ -87,10 +88,38 @@ export default function ShippingPolicyPage() {
           'transitTime': {
             '@type': 'QuantitativeValue',
             'minValue': 5,
-            'maxValue': 8,
+            'maxValue': 9,
             'unitCode': 'DAY',
           },
           'cutoffTime': '14:00:00-05:00',
+        },
+      },
+      {
+        '@type': 'OfferShippingDetails',
+        '@id': 'https://deeldepot.com/shipping-policy#shipping-gb',
+        'shippingDestination': {
+          '@type': 'DefinedRegion',
+          'addressCountry': 'GB',
+        },
+        'shippingRate': {
+          '@type': 'MonetaryAmount',
+          'value': 0,
+          'currency': 'GBP',
+        },
+        'deliveryTime': {
+          '@type': 'ShippingDeliveryTime',
+          'handlingTime': {
+            '@type': 'QuantitativeValue',
+            'minValue': 0,
+            'maxValue': 1,
+            'unitCode': 'DAY',
+          },
+          'transitTime': {
+            '@type': 'QuantitativeValue',
+            'minValue': 5,
+            'maxValue': 9,
+            'unitCode': 'DAY',
+          },
         },
       },
     ],
@@ -108,13 +137,13 @@ export default function ShippingPolicyPage() {
         <section className="mb-10 rounded-2xl bg-[#030B19] px-6 py-8 text-[#F0F6FF] sm:px-8 sm:py-10 shadow-lg">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F0F6FF]/10 bg-[#030B19]/25 px-3.5 py-1.5 text-sm font-semibold text-[#f5970c]">
             <Truck className="h-4 w-4" />
-            Fast & Free Shipping Across the US
+            Fast & Free Shipping Across US & UK
           </div>
           <h1 className="max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
             Shipping Policy
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-[#F0F6FF]/80 sm:text-lg">
-            At Deel Depot, we focus on fast, reliable fulfillment with transparent delivery windows, free standard shipping, and real-time tracking from warehouse to door.
+            At Deel Depot, we focus on fast, reliable fulfillment with transparent delivery windows, free standard shipping to the US and UK, and real-time tracking from warehouse to door.
           </p>
         </section>
 
@@ -130,7 +159,7 @@ export default function ShippingPolicyPage() {
             <PackageCheck className="mb-4 h-6 w-6 text-[#030B19]" />
             <h2 className="text-lg font-bold text-[#262626]">Free Standard Shipping</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Free shipping on all orders across the United States with no minimum spend.
+              Free shipping on all orders across the United States & United Kingdom with no minimum spend required.
             </p>
           </div>
           <div className="rounded-xl border border-[#030B19]/10 bg-white p-5 shadow-sm">
@@ -188,7 +217,7 @@ export default function ShippingPolicyPage() {
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <div className="flex items-center gap-3 rounded-xl bg-[#F5F7FB] p-4">
               <MapPin className="h-5 w-5 text-[#030B19]" />
-              <span className="text-sm font-medium text-[#262626]">United States</span>
+              <span className="text-sm font-medium text-[#262626]">United States & United Kingdom</span>
             </div>
             <div className="flex items-center gap-3 rounded-xl bg-[#F5F7FB] p-4">
               <Mail className="h-5 w-5 text-[#030B19]" />

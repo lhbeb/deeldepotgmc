@@ -118,16 +118,28 @@ export default function RootLayout({
                 "contactPoint": {
                   "@type": "ContactPoint",
                   "contactType": "customer service",
-                  "email": "contact@deeldepot.com"
+                  "email": "contact@deeldepot.com",
+                  "telephone": "+19129231747",
+                  "areaServed": ["GB", "US"]
                 },
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "1249 Coney Island Ave",
-                  "addressLocality": "Brooklyn",
-                  "addressRegion": "NY",
-                  "postalCode": "11230",
-                  "addressCountry": "USA"
-                }
+                "address": [
+                  {
+                    "@type": "PostalAddress",
+                    "streetAddress": "20 Matlock Cl",
+                    "addressLocality": "London",
+                    "addressRegion": "Greater London",
+                    "postalCode": "SE24 0BB",
+                    "addressCountry": "GB"
+                  },
+                  {
+                    "@type": "PostalAddress",
+                    "streetAddress": "1249 Coney Island Ave",
+                    "addressLocality": "Brooklyn",
+                    "addressRegion": "NY",
+                    "postalCode": "11230",
+                    "addressCountry": "US"
+                  }
+                ]
               })
             }}
           />

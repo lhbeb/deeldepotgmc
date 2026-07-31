@@ -150,11 +150,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         "hasMerchantReturnPolicy": {
           "@type": "MerchantReturnPolicy",
           "applicableCountry": ["GB", "US"],
-          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturn",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
           "merchantReturnDays": 30,
           "returnMethod": "https://schema.org/ReturnByMail",
           "returnFees": "https://schema.org/FreeReturn",
-          "returnLabelSource": "https://schema.org/ReturnLabelInPackage",
+          "returnLabelSource": "https://schema.org/ReturnLabelDownloadAndPrint",
           "restockingFee": 0,
           "refundType": "https://schema.org/FullRefund"
         },
@@ -164,7 +164,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": 0,
-              "currency": p.currency || "USD"
+              "currency": "GBP"
             },
             "shippingDestination": {
               "@type": "DefinedRegion",
@@ -181,7 +181,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               "transitTime": {
                 "@type": "QuantitativeValue",
                 "minValue": 5,
-                "maxValue": 8,
+                "maxValue": 9,
                 "unitCode": "DAY"
               }
             }
@@ -191,7 +191,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": 0,
-              "currency": p.currency || "USD"
+              "currency": "USD"
             },
             "shippingDestination": {
               "@type": "DefinedRegion",
@@ -207,8 +207,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               },
               "transitTime": {
                 "@type": "QuantitativeValue",
-                "minValue": 3,
-                "maxValue": 6,
+                "minValue": 5,
+                "maxValue": 9,
                 "unitCode": "DAY"
               }
             }

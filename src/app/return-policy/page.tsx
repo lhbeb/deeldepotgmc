@@ -24,18 +24,24 @@ export const metadata: Metadata = {
 export default function ReturnPolicyPage() {
   const schemaMarkup = {
     '@context': 'https://schema.org',
-    '@type': 'MerchantReturnPolicy',
-    'name': 'Deel Depot Return & Exchange Policy',
-    'url': 'https://www.deeldepot.com/return-policy',
-    'applicableCountry': 'US',
-    'returnPolicyCategory': 'https://schema.org/MerchantReturnFiniteReturn',
-    'merchantReturnDays': 30,
-    'returnMethod': 'https://schema.org/ReturnByMail',
-    'returnFees': 'https://schema.org/FreeReturn',
-    'returnLabelSource': 'https://schema.org/ReturnLabelInPackage',
-    'restockingFee': 0,
-    'refundType': 'https://schema.org/FullRefund',
-    'itemCondition': 'https://schema.org/NewCondition',
+    '@type': 'OnlineStore',
+    '@id': 'https://deeldepot.com/#organization',
+    'name': 'Deel Depot',
+    'url': 'https://deeldepot.com',
+    'hasMerchantReturnPolicy': {
+      '@type': 'MerchantReturnPolicy',
+      'name': 'Deel Depot Return & Exchange Policy',
+      'merchantReturnLink': 'https://deeldepot.com/return-policy',
+      'applicableCountry': ['GB', 'US'],
+      'returnPolicyCategory': 'https://schema.org/MerchantReturnFiniteReturnWindow',
+      'merchantReturnDays': 30,
+      'returnMethod': 'https://schema.org/ReturnByMail',
+      'returnFees': 'https://schema.org/FreeReturn',
+      'returnLabelSource': 'https://schema.org/ReturnLabelDownloadAndPrint',
+      'restockingFee': 0,
+      'refundType': 'https://schema.org/FullRefund',
+      'itemCondition': 'https://schema.org/NewCondition',
+    },
   };
 
   return (
@@ -130,7 +136,7 @@ export default function ReturnPolicyPage() {
               <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-200">
                 <h3 className="font-bold text-blue-900 text-base mb-1">Change of Mind</h3>
                 <p className="text-sm text-blue-800">
-                  Changed your mind or ordered the wrong item? No problem. You can return it within 30 days for a full refund of the item price.
+                  Changed your mind or ordered the wrong item? You can return it within 30 days with a free prepaid return label for a full refund of the item price.
                 </p>
               </div>
             </div>
@@ -177,10 +183,10 @@ export default function ReturnPolicyPage() {
                 <strong>Contact us</strong> at <a href="mailto:contact@deeldepot.com" className="text-blue-600 hover:underline font-semibold">contact@deeldepot.com</a> or call <span className="font-semibold">+19129231747</span>.
               </li>
               <li>
-                <strong>Use the return label</strong> included in your original package, or we&apos;ll email you a replacement if needed.
+                <strong>Get your free return label</strong>. We&apos;ll email you a prepaid label after approving your return request.
               </li>
               <li>
-                <strong>Ship it back</strong> securely. For defective items, return postage is on us. For change-of-mind returns, return postage is your responsibility.
+                <strong>Ship it back</strong> securely. Return postage is free for eligible UK and US returns, including defective items and change-of-mind returns.
               </li>
               <li>
                 <strong>Get your refund</strong>. Once inspected, your refund is processed within 5 business days.
@@ -240,7 +246,7 @@ export default function ReturnPolicyPage() {
                   <span>Phone</span>
                 </div>
                 <div className="text-sm text-gray-600 pl-7 space-y-1">
-                  <div><strong className="text-gray-900">US:</strong> +19129231747</div>
+                  <div>+19129231747</div>
                 </div>
 
                 <div className="flex items-center gap-2 font-bold text-[#090A28] pt-2">
@@ -259,7 +265,11 @@ export default function ReturnPolicyPage() {
                 </div>
                 <div className="text-sm text-gray-600 pl-7 space-y-2">
                   <div>
-                    <strong className="text-gray-900 block">US Warehouse:</strong>
+                    <strong className="text-gray-900 block">UK Registered Office:</strong>
+                    20 Matlock Cl, London, Greater London SE24 0BB, United Kingdom
+                  </div>
+                  <div>
+                    <strong className="text-gray-900 block">US Dispatch Center:</strong>
                     1249 Coney Island Ave, Brooklyn, NY 11230, United States
                   </div>
                 </div>

@@ -37,7 +37,14 @@ const Footer = () => {
               <div className="flex items-start">
                 <MapPin className="h-5 w-5 shrink-0 text-[#f5970c] mr-2 mt-1" />
                 <div>
-                  <span className="block font-semibold text-white">United States</span>
+                  <span className="block font-semibold text-white">UK Registered Office</span>
+                  <span>20 Matlock Cl, London, Greater London SE24 0BB, United Kingdom</span>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <MapPin className="h-5 w-5 shrink-0 text-[#f5970c] mr-2 mt-1" />
+                <div>
+                  <span className="block font-semibold text-white">US Dispatch Center</span>
                   <span>1249 Coney Island Ave, Brooklyn, NY 11230, United States</span>
                 </div>
               </div>

@@ -2,7 +2,7 @@
 // Registered business office and GMC support details
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Building2 } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -21,20 +21,20 @@ export default function ContactPage() {
     '@graph': [
       {
         '@type': 'ContactPage',
-        '@id': 'https://www.deeldepot.com/contact#webpage',
-        'url': 'https://www.deeldepot.com/contact',
+        '@id': 'https://deeldepot.com/contact#webpage',
+        'url': 'https://deeldepot.com/contact',
         'name': 'Contact Us | Deel Depot',
         'description':
           'Contact Deel Depot customer support team. Reach us by phone, email, or send us a direct message.',
         'mainEntity': {
-          '@id': 'https://www.deeldepot.com/#organization',
+          '@id': 'https://deeldepot.com/#organization',
         },
       },
       {
         '@type': 'Organization',
-        '@id': 'https://www.deeldepot.com/#organization',
+        '@id': 'https://deeldepot.com/#organization',
         'name': 'Deel Depot',
-        'url': 'https://www.deeldepot.com',
+        'url': 'https://deeldepot.com',
         'email': 'contact@deeldepot.com',
         'telephone': ['+19129231747'],
         'contactPoint': [
@@ -42,11 +42,19 @@ export default function ContactPage() {
             '@type': 'ContactPoint',
             'telephone': '+19129231747',
             'contactType': 'customer service',
-            'areaServed': ['US', 'CA'],
+            'areaServed': ['US', 'GB'],
             'availableLanguage': ['en'],
           },
         ],
         'address': [
+          {
+            '@type': 'PostalAddress',
+            'streetAddress': '20 Matlock Cl',
+            'addressLocality': 'London',
+            'addressRegion': 'Greater London',
+            'postalCode': 'SE24 0BB',
+            'addressCountry': 'GB',
+          },
           {
             '@type': 'PostalAddress',
             'streetAddress': '1249 Coney Island Ave',
@@ -213,9 +221,16 @@ export default function ContactPage() {
                   <h2 className="text-xl font-bold text-[#262626] mb-6">Get in Touch</h2>
                   <div className="space-y-6">
                     <div className="flex items-start">
+                      <Building2 className="h-6 w-6 text-[#090A28] mt-1 shrink-0" />
+                      <div className="ml-4">
+                        <h3 className="font-medium text-[#262626]">UK Registered Office</h3>
+                        <p className="text-gray-600 mt-1">20 Matlock Cl, London, Greater London SE24 0BB, United Kingdom</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
                       <MapPin className="h-6 w-6 text-[#090A28] mt-1 shrink-0" />
                       <div className="ml-4">
-                        <h3 className="font-medium text-[#262626]">US Warehouse & Fulfillment</h3>
+                        <h3 className="font-medium text-[#262626]">US Dispatch Center</h3>
                         <p className="text-gray-600 mt-1">1249 Coney Island Ave, Brooklyn, NY 11230, United States</p>
                       </div>
                     </div>
@@ -223,7 +238,7 @@ export default function ContactPage() {
                       <Phone className="h-6 w-6 text-[#090A28] mt-1 shrink-0" />
                       <div className="ml-4">
                         <h3 className="font-medium text-[#262626]">Phone Support</h3>
-                        <p className="text-gray-600 mt-1"><span className="font-semibold">US:</span> +19129231747</p>
+                        <p className="text-gray-600 mt-1"><span className="font-semibold">Phone:</span> +19129231747</p>
                       </div>
                     </div>
                     <div className="flex items-start">

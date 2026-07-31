@@ -34,25 +34,33 @@ export default function AboutPage() {
     '@graph': [
       {
         '@type': 'AboutPage',
-        '@id': 'https://www.deeldepot.com/about#webpage',
-        'url': 'https://www.deeldepot.com/about',
+        '@id': 'https://deeldepot.com/about#webpage',
+        'url': 'https://deeldepot.com/about',
         'name': 'About Deel Depot',
         'description':
-          'Deel Depot is a US-based e-commerce retailer specializing in outdoor power equipment and garden essentials.',
+          'Deel Depot is an ecommerce retailer serving customers in the United Kingdom and United States with outdoor power equipment and garden essentials.',
         'mainEntity': {
-          '@id': 'https://www.deeldepot.com/#organization',
+          '@id': 'https://deeldepot.com/#organization',
         },
       },
       {
         '@type': 'OnlineStore',
-        '@id': 'https://www.deeldepot.com/#organization',
+        '@id': 'https://deeldepot.com/#organization',
         'name': 'Deel Depot',
-        'url': 'https://www.deeldepot.com',
+        'url': 'https://deeldepot.com',
         'description':
-          'US-based ecommerce store offering lawn mowers, power tools, portable generators, and garden essentials.',
+          'Ecommerce store serving the United Kingdom and United States with lawn mowers, power tools, portable generators, and garden essentials.',
         'email': 'contact@deeldepot.com',
         'telephone': ['+19129231747'],
         'address': [
+          {
+            '@type': 'PostalAddress',
+            'streetAddress': '20 Matlock Cl',
+            'addressLocality': 'London',
+            'addressRegion': 'Greater London',
+            'postalCode': 'SE24 0BB',
+            'addressCountry': 'GB',
+          },
           {
             '@type': 'PostalAddress',
             'streetAddress': '1249 Coney Island Ave',
@@ -67,7 +75,7 @@ export default function AboutPage() {
             '@type': 'ContactPoint',
             'telephone': '+19129231747',
             'contactType': 'customer service',
-            'areaServed': ['US', 'CA'],
+            'areaServed': ['GB', 'US'],
             'availableLanguage': ['en'],
           },
         ],
@@ -392,7 +400,14 @@ export default function AboutPage() {
             <div className="bg-[#F0F6FF] rounded-xl p-6 border border-[#030B19]/10">
               <div className="flex items-center gap-3 mb-3">
                 <MapPin className="h-5 w-5 text-[#030B19]" />
-                <div className="font-medium text-[#262626]">United States location</div>
+                <div className="font-medium text-[#262626]">UK Registered Office</div>
+              </div>
+              <div className="text-gray-600 ml-8">20 Matlock Cl, London, Greater London SE24 0BB, United Kingdom</div>
+            </div>
+            <div className="bg-[#F0F6FF] rounded-xl p-6 border border-[#030B19]/10">
+              <div className="flex items-center gap-3 mb-3">
+                <MapPin className="h-5 w-5 text-[#030B19]" />
+                <div className="font-medium text-[#262626]">US Dispatch Center</div>
               </div>
               <div className="text-gray-600 ml-8">1249 Coney Island Ave, Brooklyn, NY 11230, United States</div>
             </div>
