@@ -3,11 +3,11 @@ import Link from 'next/link';
 import type { Product } from '@/types/product';
 
 const POPULAR_CATEGORY_NAMES = [
-  'Blowers',
-  'Hardware',
-  'Lawn Mowers',
-  'Pressure Washers',
-  'Vacuum Cleaners',
+  'E-Bikes',
+  'Cameras',
+  'Gaming Consoles',
+  'Fashion',
+  'Collectibles',
 ] as const;
 
 interface PopularCategoriesProps {

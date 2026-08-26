@@ -18,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: 'Return & Exchange Policy | Deel Depot',
   description:
-    'Deel Depot Return & Exchange Policy. We accept returns for both defective and non-defective products within 30 days. Free return label included, no restocking fee, 5-day refund processing.',
+    'Deel Depot marketplace Return & Exchange Policy for e-bikes, cameras, gaming consoles, electronics, fashion, furniture, and more.',
 };
 
 export default function ReturnPolicyPage() {
@@ -40,7 +40,11 @@ export default function ReturnPolicyPage() {
       'returnLabelSource': 'https://schema.org/ReturnLabelDownloadAndPrint',
       'restockingFee': 0,
       'refundType': 'https://schema.org/FullRefund',
-      'itemCondition': 'https://schema.org/NewCondition',
+      'itemCondition': [
+        'https://schema.org/NewCondition',
+        'https://schema.org/UsedCondition',
+        'https://schema.org/RefurbishedCondition',
+      ],
     },
   };
 
@@ -116,7 +120,7 @@ export default function ReturnPolicyPage() {
 
           {/* Introduction */}
           <p className="text-lg leading-relaxed text-gray-800">
-            At <strong className="text-[#090A28]">Deel Depot</strong>, your satisfaction is our top priority. We want you to shop with complete confidence. If your purchase isn&apos;t right for any reason, we&apos;re here to make it simple.
+            At <strong className="text-[#090A28]">Deel Depot</strong>, your satisfaction is our top priority. Whether you buy an e-bike, camera, gaming console, electronic device, fashion item, furniture, or another marketplace product, we want you to shop with complete confidence. If your purchase isn&apos;t right, we&apos;re here to make the process simple.
           </p>
 
           {/* 1. Returns */}
@@ -165,9 +169,16 @@ export default function ReturnPolicyPage() {
             <p>You have <strong>30 calendar days</strong> from the date of delivery to return or exchange your item.</p>
             <p className="font-semibold text-gray-900">Your item should be:</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>In new, unused condition with original tags and packaging where possible.</li>
+              <li>In the same condition in which it was received, without new wear, damage, modification, or missing parts.</li>
+              <li>Returned with original tags, packaging, manuals, chargers, keys, cables, accessories, certificates, and bundled items where supplied.</li>
+              <li>Reset and disconnected from personal accounts, activation locks, cloud services, or device-management tools.</li>
               <li>Accompanied by proof of purchase (order number or confirmation email).</li>
               <li>Free from post-delivery damage caused after receipt.</li>
+              <li>E-bikes should include the charger, keys, battery, manuals, and supplied accessories. Do not ship a damaged or swollen lithium battery; contact us for safety instructions.</li>
+              <li>Cameras, consoles, and electronics must have passwords, memory cards, personal data, and account locks removed. Serial numbers and security seals may be verified.</li>
+              <li>Fashion items must be unworn, unwashed, unaltered, and returned with tags. Hygiene-sensitive goods must remain sealed where applicable.</li>
+              <li>Furniture and oversized goods may require an arranged carrier or collection. Contact us before sending them back.</li>
+              <li>Personalized, perishable, digital, hygiene-sensitive, or final-sale items may be non-returnable for change of mind when clearly disclosed, except where defective, misdescribed, or otherwise required by law.</li>
             </ul>
           </div>
 
@@ -227,7 +238,7 @@ export default function ReturnPolicyPage() {
               <h2 className="text-2xl font-bold text-[#090A28]">7. Marketplace Seller Items</h2>
             </div>
             <p>
-              Products from our verified marketplace partners follow the exact same 30-day return policy. All returns are shipped to our central warehouse for inspection, so the experience is consistent regardless of the seller.
+              Eligible products from verified marketplace sellers follow the same 30-day return process unless a category-specific exception is clearly disclosed before purchase. Start every return through Deel Depot rather than sending an item directly to a seller. We will provide the correct return destination and coordinate the inspection, refund, or exchange.
             </p>
           </div>
 

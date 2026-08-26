@@ -15,16 +15,17 @@ const TermsPage = () => {
         
         <div className="prose max-w-none text-gray-700 space-y-8">
           <p className="text-lg leading-relaxed">
-            Welcome to Deel Depot. By accessing or using our website, marketplace, or services, you agree to be bound by these Terms of Service. Please read them carefully. If you do not agree, please discontinue using the site.
+            Welcome to Deel Depot, a multi-category marketplace connecting buyers with Deel Depot and approved third-party sellers. By accessing or using our website, marketplace, or services, you agree to be bound by these Terms of Service. Please read them carefully. If you do not agree, please discontinue using the site.
           </p>
 
           {/* Section 1: Overview */}
           <div>
             <h2 className="text-3xl font-bold text-[#262626] mt-10 mb-4">1. Overview</h2>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Deel Depot operates as a direct retailer and as a curated marketplace.</li>
+              <li>Deel Depot operates as a direct retailer and as a curated multi-category marketplace.</li>
+              <li>Our marketplace may include e-bikes, cameras, gaming consoles, electronics, fashion, furniture, collectibles, home goods, and other consumer products.</li>
+              <li>Products may be sold by Deel Depot or by an approved third-party seller. The seller is identified on the applicable product page or order information.</li>
               <li>We source products through auctions, private sellers, liquidators, wholesalers, and other third-party suppliers.</li>
-              <li>We also allow approved private sellers to list items on our platform after a full inspection by our team.</li>
               <li>All purchases made through Deel Depot are processed under these Terms.</li>
             </ul>
           </div>
@@ -44,22 +45,24 @@ const TermsPage = () => {
           <div>
             <h2 className="text-3xl font-bold text-[#262626] mt-10 mb-4">3. Marketplace and Private Seller Terms</h2>
             <p className="mb-4">
-              Deel Depot hosts a controlled marketplace where approved private sellers may offer products.
+              Deel Depot hosts a controlled marketplace where approved private sellers may offer products. Deel Depot provides the platform, payment experience, buyer support, and the protections described in these Terms. The seller shown on the listing remains responsible for the product, the accuracy of the listing, and compliance with applicable law.
             </p>
 
             <h3 className="text-xl font-bold text-[#262626] mt-6 mb-3">3.1 Seller Onboarding Process</h3>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>Private sellers must be screened and approved before listing items.</li>
-              <li>Sellers send their inventory to our warehouse, where it is inspected, authenticated, tested, and verified before any listing goes live.</li>
+              <li>We may collect and verify seller identity, contact, payment, tax, and business information as required by law and our marketplace standards.</li>
+              <li>Seller information may be displayed on listings, order records, or other marketplace pages where required by law.</li>
+              <li>Items may be inspected, authenticated, tested, or verified by Deel Depot before shipment when the listing or category requires it.</li>
             </ul>
 
             <h3 className="text-xl font-bold text-[#262626] mt-6 mb-3">3.2 Fulfillment Process</h3>
             <p className="mb-2">When you purchase an item from a third-party seller:</p>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>It is clearly indicated on the product page.</li>
-              <li>The seller sends the item to our warehouse if it is not already stored with us.</li>
-              <li>Our inspection team confirms the condition, functionality, and price accuracy.</li>
-              <li>Only after passing inspection is the item shipped to the customer.</li>
+              <li>The item may ship from a Deel Depot facility, an authentication or inspection location, or the approved seller, as stated in the order details.</li>
+              <li>Selected high-value, luxury, refurbished, or pre-owned products may require additional inspection or authentication before dispatch.</li>
+              <li>Orders containing items from different sellers may arrive in separate packages and on different dates.</li>
             </ul>
             <p className="mb-4">
               Deel Depot reserves the right to reject, refund, or cancel any order if the item fails inspection.
@@ -70,7 +73,10 @@ const TermsPage = () => {
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>The authenticity of their products</li>
               <li>Providing accurate condition descriptions</li>
+              <li>Providing accurate photographs, specifications, dimensions, compatibility details, and included accessories</li>
+              <li>Disclosing whether an item is new, used, refurbished, open-box, vintage, or customized</li>
               <li>Meeting our quality and safety standards</li>
+              <li>Complying with product safety, recall, intellectual property, tax, and consumer protection requirements</li>
             </ul>
             <p>
               Deel Depot is not responsible for inaccurate representations made by sellers, although we take all reasonable steps to verify product condition before shipment.
@@ -82,8 +88,10 @@ const TermsPage = () => {
             <h2 className="text-3xl font-bold text-[#262626] mt-10 mb-4">4. Product Terms</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>We aim to provide accurate and detailed product descriptions.</li>
-              <li>We sell new, open-box, refurbished, and pre owned items, each clearly labeled.</li>
-              <li>All used or open-box electronics are tested prior to sale.</li>
+              <li>We sell new, open-box, refurbished, vintage, and pre-owned items, each clearly labeled where applicable.</li>
+              <li>Condition, testing, authentication, warranty, compatibility, dimensions, and included accessories vary by item and are described in the listing.</li>
+              <li>For cameras, electronics, gaming consoles, e-bikes, and other serialized goods, we may record serial numbers or identifying details for fraud prevention, returns, and safety purposes.</li>
+              <li>Colours, measurements, materials, and condition may appear differently across screens or may show reasonable signs of prior use when the item is listed as pre-owned.</li>
               <li>Product availability is not guaranteed until an order is processed.</li>
               <li>Prices may change at any time due to market conditions and sourcing costs.</li>
               <li>We reserve the right to modify, limit, or discontinue any product or listing.</li>
@@ -158,7 +166,7 @@ const TermsPage = () => {
               <li>We work quickly to resolve any concerns, disputes, or issues.</li>
             </ul>
             <p className="mt-4">
-              Marketplace seller products also fall under this guarantee unless specifically stated otherwise.
+              Marketplace seller products also fall under this guarantee unless a clearly disclosed category-specific exception applies. Certain personalized, hygiene-sensitive, final-sale, digital, hazardous, or oversized items may have different return requirements as explained on the listing and in our Return & Exchange Policy. Your statutory rights are not affected.
             </p>
           </div>
 
@@ -184,6 +192,9 @@ const TermsPage = () => {
             </p>
             <p>
               Creating false accounts, listing products fraudulently, or misrepresenting product ownership is strictly prohibited.
+            </p>
+            <p className="mt-4">
+              Sellers may not list counterfeit, stolen, recalled, unsafe, prohibited, or unlawfully obtained goods. Deel Depot may remove listings, hold or cancel transactions, request proof of authenticity or ownership, restrict accounts, and cooperate with payment providers, rights holders, carriers, or law enforcement where reasonably necessary.
             </p>
           </div>
 

@@ -8,7 +8,7 @@ const PrivacyPolicyPage = () => (
       <div className="prose max-w-none text-gray-700 space-y-8">
         {/* Introduction */}
         <p className="text-lg leading-relaxed">
-          At Deel Depot, your privacy is important to us. This Privacy Policy explains what information we collect, how we use it, how we protect it, and the choices you have regarding your personal data when you visit or use our website.
+          At Deel Depot, your privacy is important to us. This Privacy Policy explains what information we collect, how we use it, how we protect it, and the choices you have when you browse, buy, sell, communicate, or otherwise use our multi-category marketplace.
         </p>
 
         {/* Information We Collect */}
@@ -21,12 +21,14 @@ const PrivacyPolicyPage = () => (
           <ul className="list-disc pl-6 space-y-2 mb-4">
             <li>Create an account</li>
             <li>Place an order</li>
+            <li>Apply to sell, create a seller profile, or submit a listing</li>
+            <li>Communicate with Deel Depot or a marketplace seller</li>
             <li>Sign up for our newsletter</li>
             <li>Contact our customer service team</li>
             <li>Participate in surveys, promotions, or giveaways</li>
           </ul>
           <p className="mb-4">
-            This information may include your name, email address, phone number, billing and shipping address, and payment details.
+            This information may include your name, email address, phone number, billing and shipping address, payment details, messages, order history, saved items, reviews, and support records. Sellers may also provide identity, business, tax, payout, inventory, product, ownership, and verification information.
           </p>
 
           <h3 className="text-xl font-bold text-[#262626] mt-6 mb-3">Information Collected Automatically</h3>
@@ -36,6 +38,7 @@ const PrivacyPolicyPage = () => (
             <li>Browser type</li>
             <li>Device information</li>
             <li>Pages viewed</li>
+            <li>Search terms, category preferences, listing interactions, and cart activity</li>
             <li>Time spent on pages</li>
             <li>Cookies and tracking data</li>
           </ul>
@@ -50,11 +53,15 @@ const PrivacyPolicyPage = () => (
           <p className="mb-4">We use the information we collect to:</p>
           <ul className="list-disc pl-6 space-y-2">
             <li>Process and fulfill your orders</li>
+            <li>Operate marketplace accounts, seller profiles, listings, reviews, saved items, and buyer-seller communications</li>
+            <li>Verify sellers, listings, product ownership, authenticity, condition, and eligibility where applicable</li>
             <li>Send order confirmations and shipping updates</li>
             <li>Respond to customer inquiries and support requests</li>
             <li>Send marketing emails if you have opted in</li>
             <li>Improve our website, products, and services</li>
             <li>Detect and prevent fraud</li>
+            <li>Resolve returns, disputes, chargebacks, safety reports, and suspected policy violations</li>
+            <li>Comply with seller-verification, tax, product-safety, and marketplace disclosure obligations</li>
             <li>Comply with legal requirements</li>
           </ul>
         </div>
@@ -63,16 +70,18 @@ const PrivacyPolicyPage = () => (
         <div>
           <h2 className="text-3xl font-bold text-[#262626] mt-10 mb-4">Information Sharing</h2>
           <p className="mb-4">
-            We do not sell or trade your personal information to third parties. We may share your information only with trusted service providers who help us operate our website or fulfill your orders, such as:
+            We do not sell or trade your personal information to third parties. We may share only the information reasonably necessary to operate the marketplace, complete a transaction, provide support, protect users, or comply with law. Recipients may include:
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-4">
             <li>Payment processors</li>
             <li>Shipping partners</li>
+            <li>The buyer or seller involved in your transaction</li>
+            <li>Authentication, inspection, repair, fraud-prevention, and identity-verification providers</li>
             <li>Email communication platforms</li>
             <li>Website analytics providers</li>
           </ul>
           <p className="mb-4">
-            These partners are required to keep your information confidential and use it only for the services they provide.
+            A seller may receive your name, shipping details, order information, and marketplace contact details when needed to fulfill or support an order. Buyers may see seller identity, business location, ratings, or contact information where required by law or necessary for marketplace transparency. We do not provide either party with full payment-card details. We may monitor or retain marketplace messages when reasonably necessary to prevent fraud, enforce our policies, resolve disputes, provide customer support, or comply with legal obligations.
           </p>
           <p>
             We may also disclose your information if required by law or to protect our rights, safety, or property.
@@ -83,7 +92,7 @@ const PrivacyPolicyPage = () => (
         <div>
           <h2 className="text-3xl font-bold text-[#262626] mt-10 mb-4">Data Security</h2>
           <p>
-            We take appropriate technical and organizational measures to protect your information. While we strive to safeguard your data, no method of online transmission or storage is completely secure.
+            We take appropriate technical and organizational measures to protect your information. While we strive to safeguard your data, no method of online transmission or storage is completely secure. We retain personal information only for as long as reasonably necessary for account operation, transactions, returns, fraud prevention, dispute resolution, safety obligations, and legal compliance. Retention periods vary by data type and applicable law.
           </p>
         </div>
 

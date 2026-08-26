@@ -12,11 +12,11 @@ import SearchBar from './SearchBar';
 
 const catalogNavigation = [
   { label: 'All', href: '/#products' },
-  { label: 'Lawn Mowers', href: '/search?category=Lawn%20Mowers' },
-  { label: 'Swimming Pools', href: '/search?category=Swimming%20Pools' },
-  { label: 'Bikes', href: '/search?category=Bikes' },
-  { label: 'Electric Scooters', href: '/search?category=Electric%20Scooters' },
-  { label: 'Tents', href: '/search?category=Tents' },
+  { label: 'E-Bikes', href: '/search?category=E-Bikes' },
+  { label: 'Cameras', href: '/search?category=Cameras' },
+  { label: 'Gaming Consoles', href: '/search?category=Gaming%20Consoles' },
+  { label: 'Fashion', href: '/search?category=Fashion' },
+  { label: 'Collectibles', href: '/search?category=Collectibles' },
 ] as const;
 
 const Header = () => {

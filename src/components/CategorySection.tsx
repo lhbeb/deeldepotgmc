@@ -16,8 +16,8 @@ interface CategorySectionProps {
 
 const CategorySection: React.FC<CategorySectionProps> = ({
   products,
-  title = 'Power Tools & Generators',
-  subtitle = 'Reliable equipment to get the job done.',
+  title = 'More to Discover',
+  subtitle = 'Fresh finds from across the Deel Depot marketplace.',
   maxDisplay = 8,
   shuffleForVisitor = false,
   visitorShuffleKey = 'home-power-tools',

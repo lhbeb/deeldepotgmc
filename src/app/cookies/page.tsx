@@ -8,7 +8,7 @@ const CookiesPage = () => (
       <div className="prose max-w-none text-gray-700 space-y-8">
         {/* Introduction */}
         <p className="text-lg leading-relaxed">
-          This Cookies Policy explains how Deel Depot uses cookies and similar tracking technologies on our website. By using our website, you agree to the use of cookies as described in this policy.
+          This Cookies Policy explains how Deel Depot uses cookies and similar technologies when you browse, buy, sell, or communicate through our multi-category marketplace. Where required, we ask for your consent before using non-essential cookies.
         </p>
 
         {/* What Are Cookies */}
@@ -27,7 +27,7 @@ const CookiesPage = () => (
             <div>
               <h3 className="text-xl font-bold text-[#262626] mb-2">Essential Cookies</h3>
               <p>
-                These cookies are required for the website to operate. They support functions such as page navigation, secure login, and access to restricted areas.
+                These cookies are required for the marketplace to operate. They support functions such as page navigation, secure login, shopping carts, checkout, fraud prevention, seller tools, account security, and access to restricted areas. We may also use local storage and similar technologies to maintain sessions, detect suspicious activity, and remember marketplace notices.
               </p>
             </div>
             
@@ -41,16 +41,17 @@ const CookiesPage = () => (
             <div>
               <h3 className="text-xl font-bold text-[#262626] mb-2">Functionality Cookies</h3>
               <p>
-                These cookies remember choices you make, such as language preferences, and provide enhanced and more personalized features.
+                These cookies remember choices you make, such as language, region, saved items, recently viewed listings, preferred categories, and search settings, and provide enhanced and more personalized features.
               </p>
             </div>
             
             <div>
               <h3 className="text-xl font-bold text-[#262626] mb-2">Targeting Cookies</h3>
               <p>
-                These cookies may be placed on our site by advertising partners. They help create a profile of your interests and show you relevant ads on other websites.
+                These cookies may be placed on our site by advertising partners. They help us understand interest in marketplace categories and listings, measure campaigns, and show more relevant advertising where you have allowed it.
               </p>
             </div>
+
           </div>
         </div>
 
@@ -64,6 +65,7 @@ const CookiesPage = () => (
             <li>Delete cookies stored on your device</li>
             <li>Set your browser to block cookies</li>
             <li>Choose to accept or decline cookies when prompted</li>
+            <li>Change available cookie preferences through our consent controls</li>
           </ul>
           <p>
             Please note that disabling certain cookies may affect website functionality or limit access to specific features.
@@ -79,6 +81,7 @@ const CookiesPage = () => (
           <ul className="list-disc pl-6 space-y-2 mb-4">
             <li>Google Analytics for website performance and analytics</li>
             <li>PayPal for secure payment processing</li>
+            <li>Payment, fraud-prevention, identity-verification, and marketplace service providers</li>
             <li>Social media platforms for sharing and engagement</li>
             <li>Advertising partners for targeted advertising</li>
           </ul>
@@ -130,7 +133,7 @@ const CookiesPage = () => (
         <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 mt-10">
           <h3 className="text-xl font-bold text-[#262626] mb-3">Important Note</h3>
           <p>
-            By continuing to use our website, you agree to our use of cookies as described in this policy. If you do not agree, please adjust your browser settings accordingly.
+            Essential cookies remain active because they are needed for core marketplace functions. You can manage non-essential cookies through available consent controls or your browser settings. Blocking some technologies may affect features such as saved listings, sign-in, checkout, seller tools, or personalized recommendations.
           </p>
         </div>
       </div>

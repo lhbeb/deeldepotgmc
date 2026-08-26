@@ -5,12 +5,13 @@ import { Clock, Mail, MapPin, PackageCheck, ShieldCheck, Truck } from 'lucide-re
 export const metadata: Metadata = {
   title: 'Shipping Policy | Deel Depot',
   description:
-    'Official Deel Depot Shipping Policy. Free standard shipping across the United States and United Kingdom. Same-day processing for orders placed before 2:00 PM EST.',
+    'Official Deel Depot marketplace Shipping Policy for e-bikes, cameras, gaming consoles, electronics, fashion, furniture, and more.',
 };
 
 const timeline = [
-  ['Same-day orders', 'Ships same day when placed before 2:00 PM EST'],
+  ['Eligible same-day orders', 'Ships same day when placed before 2:00 PM EST'],
   ['Standard processing', '0-1 business day'],
+  ['Seller, inspection, or oversized items', 'Timing shown on the product page or order confirmation'],
   ['United States delivery', '5-9 business days (Free Standard Shipping)'],
   ['United Kingdom delivery', '5-9 business days (Free Standard Delivery)'],
 ];
@@ -22,6 +23,7 @@ const policySections = [
       'Free standard shipping on all orders across the United States and United Kingdom',
       'No minimum purchase requirement',
       'Tracked shipping via premium logistics partners (USPS, FedEx, Royal Mail, DHL)',
+      'Any item-specific delivery charge or exception is shown before checkout',
     ],
   },
   {
@@ -40,6 +42,8 @@ const policySections = [
       'PO boxes supported for standard US deliveries',
       'APO/FPO/DPO military addresses fully supported',
       'Discreet, eco-friendly, protective packaging',
+      'Some oversized furniture and battery-powered products may have location or carrier restrictions',
+      'Items from different sellers may arrive separately, with tracking for each dispatched package',
     ],
   },
   {
@@ -49,6 +53,10 @@ const policySections = [
       'Signature confirmation for high-value orders over $500 / £400',
       'Weather-resistant outer mailers',
       'Protective bubble/foam layering for fragile items',
+      'Category-appropriate packaging for cameras, consoles, fashion, furniture, electronics, and e-bikes',
+      'Selected high-value or pre-owned items may require inspection or authentication before dispatch',
+      'Furniture may require scheduled, curbside, or specialist delivery',
+      'E-bikes and lithium batteries must travel through approved carriers and may take longer',
     ],
   },
 ];
@@ -63,7 +71,7 @@ export default function ShippingPolicyPage() {
         'url': 'https://deeldepot.com/shipping-policy',
         'name': 'Shipping Policy | Deel Depot',
         'description':
-          'Deel Depot Shipping Policy: Free standard shipping across the United States and United Kingdom. Same-day processing for orders placed before 2:00 PM EST.',
+          'Deel Depot marketplace Shipping Policy: standard delivery information for e-bikes, cameras, gaming consoles, electronics, fashion, furniture, and more.',
       },
       {
         '@type': 'OfferShippingDetails',
@@ -143,7 +151,7 @@ export default function ShippingPolicyPage() {
             Shipping Policy
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-[#F0F6FF]/80 sm:text-lg">
-            At Deel Depot, we focus on fast, reliable fulfillment with transparent delivery windows, free standard shipping to the US and UK, and real-time tracking from warehouse to door.
+            At Deel Depot, we coordinate reliable marketplace fulfillment across categories, with transparent delivery windows, free standard shipping to the US and UK where eligible, and tracking from the seller or warehouse to your door.
           </p>
         </section>
 
@@ -152,14 +160,14 @@ export default function ShippingPolicyPage() {
             <Clock className="mb-4 h-6 w-6 text-[#030B19]" />
             <h2 className="text-lg font-bold text-[#262626]">Order by 2:00 PM EST</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Orders placed before the 2:00 PM EST cutoff are processed, packed, and shipped the same business day.
+              Eligible in-stock orders placed before the 2:00 PM EST cutoff are processed, packed, and shipped the same business day.
             </p>
           </div>
           <div className="rounded-xl border border-[#030B19]/10 bg-white p-5 shadow-sm">
             <PackageCheck className="mb-4 h-6 w-6 text-[#030B19]" />
             <h2 className="text-lg font-bold text-[#262626]">Free Standard Shipping</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Free shipping on all orders across the United States & United Kingdom with no minimum spend required.
+              Free standard shipping is available across the United States & United Kingdom unless an item-specific exception is shown before checkout.
             </p>
           </div>
           <div className="rounded-xl border border-[#030B19]/10 bg-white p-5 shadow-sm">
@@ -175,7 +183,7 @@ export default function ShippingPolicyPage() {
           <div className="flex flex-col gap-3 border-b border-gray-100 pb-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-2xl font-bold text-[#262626]">Delivery Timelines</h2>
-              <p className="mt-2 text-sm text-gray-600">Same-day dispatch applies to orders placed before 2:00 PM EST on business days.</p>
+              <p className="mt-2 text-sm text-gray-600">Same-day dispatch applies to eligible orders placed before 2:00 PM EST on business days. Listing-specific estimates take priority.</p>
             </div>
             <span className="inline-flex w-fit rounded-full bg-[#f5970c] px-3.5 py-1 text-sm font-semibold text-[#030B19]">
               Same-day dispatch cutoff: 2:00 PM EST

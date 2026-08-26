@@ -25,7 +25,7 @@ import {
 export const metadata: Metadata = {
   title: 'About Us | Deel Depot',
   description:
-    'Learn about Deel Depot, your trusted source for lawn mowers, power tools, portable generators, and garden essentials. Operating across the United States with fair prices and quality service.',
+    'Learn about Deel Depot, a trusted multi-category marketplace for e-bikes, cameras, gaming, electronics, collectibles, fashion, furniture, sports gear, and more.',
 };
 
 export default function AboutPage() {
@@ -38,7 +38,7 @@ export default function AboutPage() {
         'url': 'https://deeldepot.com/about',
         'name': 'About Deel Depot',
         'description':
-          'Deel Depot is an ecommerce retailer serving customers in the United Kingdom and United States with outdoor power equipment and garden essentials.',
+          'Deel Depot is a multi-category marketplace serving customers in the United Kingdom and United States with standout deals, everyday essentials, and unique finds.',
         'mainEntity': {
           '@id': 'https://deeldepot.com/#organization',
         },
@@ -49,7 +49,7 @@ export default function AboutPage() {
         'name': 'Deel Depot',
         'url': 'https://deeldepot.com',
         'description':
-          'Ecommerce store serving the United Kingdom and United States with lawn mowers, power tools, portable generators, and garden essentials.',
+          'Online marketplace serving the United Kingdom and United States with e-bikes, cameras, gaming consoles, electronics, collectibles, fashion, accessories, furniture, sports gear, and more.',
         'email': 'contact@deeldepot.com',
         'telephone': ['+19129231747'],
         'address': [
@@ -97,7 +97,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <h1 className="text-5xl font-bold mb-6">About Deel Depot</h1>
           <p className="text-xl text-[#F0F6FF]/85 leading-relaxed max-w-3xl mx-auto">
-            Welcome to Deel Depot, your trusted source for outdoor power equipment and home project essentials. Based in the United States, we help smart shoppers find reliable lawn mowers, power tools, portable generators, and garden essentials at fair and transparent prices.
+            Welcome to Deel Depot, your marketplace for everything from e-bikes, cameras, and gaming consoles to collectibles, fashion, high fashion, accessories, furniture, sports gear, electronics, and everyday finds—all at fair and transparent prices.
           </p>
         </div>
       </div>
@@ -269,10 +269,10 @@ export default function AboutPage() {
           </div>
           <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
           <p className="text-xl text-[#F0F6FF]/85 mb-4">
-            To give every homeowner and professional access to quality outdoor and power equipment at honest prices.
+            To give every shopper access to quality products, unique finds, and genuine value across one trusted marketplace.
           </p>
           <p className="text-lg text-[#F0F6FF]/85">
-            Whether you need a ride mower, pressure washer, generator, or set of power tools, you should not have to pay more than necessary.
+            Whether you are looking for an e-bike, a camera, a rare collectible, a gaming console, designer fashion, furniture, sports gear, or something unexpected, you should not have to pay more than necessary.
           </p>
         </div>
 

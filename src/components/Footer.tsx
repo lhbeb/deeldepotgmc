@@ -19,7 +19,7 @@ const Footer = () => {
               />
             </Link>
             <p className="mb-4 text-[#F0F6FF]">
-              Your trusted destination for reliable lawn mowers, power tools, generators, and garden essentials.
+              Your trusted marketplace for standout deals, everyday essentials, rare finds, and everything in between.
             </p>
             <div className="space-y-2">
               <div className="flex items-center">

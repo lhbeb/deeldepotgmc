@@ -12,15 +12,16 @@ interface SearchPageClientProps {
 }
 
 const CATALOG_CATEGORIES = [
-  "Blowers",
-  "Hardware",
-  "Lawn Mowers",
-  "Pressure Washers",
-  "Swimming Pools",
-  "Bikes",
-  "Electric Scooters",
-  "Tents",
-  "Vacuum Cleaners",
+  "E-Bikes",
+  "Cameras",
+  "Gaming Consoles",
+  "Electronics",
+  "Fashion",
+  "High Fashion",
+  "Accessories",
+  "Collectibles",
+  "Sports Gear",
+  "Furniture",
 ] as const;
 
 function getExactCatalogCategory(value: string): string {
@@ -140,7 +141,7 @@ export default function SearchPageClient({ initialQuery, initialCategory }: Sear
   const searchParams = useSearchParams();
   const queryParam = searchParams.get("query") || initialQuery || "";
   const categoryParam = searchParams.get("category") || initialCategory || "";
-  // Old and cached navbar links used `?query=Lawn Mowers`. Treat known catalog
+  // Old and cached navbar links may use `?query=Category Name`. Treat known catalog
   // names as exact categories so accessory copy cannot leak into the results.
   const exactCategory = categoryParam.trim() || getExactCatalogCategory(queryParam);
   const activeTerm = exactCategory || queryParam;

@@ -9,7 +9,7 @@ export const STORE_FAQS: readonly StoreFaq[] = [
   {
     question: 'What products does Deel Depot sell?',
     answer:
-      'Deel Depot specializes in outdoor and home-project equipment, including lawn mowers, blowers, pressure washers, hardware, vacuum cleaners, and related essentials.',
+      'Deel Depot is a multi-category marketplace for e-bikes, cameras, gaming consoles, electronics, collectibles, fashion, high fashion, accessories, furniture, sports gear, everyday essentials, and more.',
   },
   {
     question: 'Are your products new or pre-owned?',

@@ -32,7 +32,7 @@ export default function LocalPickupPage() {
               Pick up your Deel Depot order with confidence
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-[#D9E6FF] sm:text-base">
-              Eligible outdoor power equipment and garden products can be collected from our location in Brooklyn, New York. This page covers what to expect, what to bring, and how collection works once your order is ready.
+              Eligible marketplace purchases can be collected from our location in Brooklyn, New York. This page covers what to expect, what to bring, and how collection works once your order is ready.
             </p>
           </section>
 

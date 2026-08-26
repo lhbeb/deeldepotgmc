@@ -13,7 +13,7 @@ const Hero = () => {
     const element = typingTextRef.current;
     if (!element) return;
 
-    const words = ['Lawn Mowers', 'Power Tools', 'Portable Generators', 'Garden Essentials'];
+    const words = ['E-Bikes', 'Cameras', 'Gaming Consoles', 'High Fashion'];
     let isAnimating = true;
     let currentIndex = 0;
 
@@ -82,13 +82,13 @@ const Hero = () => {
                 {placeholder}
               </span>
               <span className="block leading-tight">
-                Power Your Outdoor and Home Projects With Confidence
+                Find More of What You Love in One Marketplace
               </span>
             </h1>
 
             {/* Description - PRESERVED content */}
             <p className="mt-4 max-w-[580px] text-sm leading-relaxed text-[#F0F6FF]/90 md:text-base">
-              Discover reliable garden essentials, durable power tools, portable generators, and ride mowers designed to handle every task with strength and performance.
+              Discover standout deals across collectibles, fashion, accessories, cameras, gaming, electronics, furniture, sports gear, and everyday finds.
             </p>
 
             {/* Shop Now Button - PRESERVED href */}
@@ -103,8 +103,8 @@ const Hero = () => {
           {/* Image panel — equal height to the content panel on desktop */}
           <div className="relative order-1 min-h-[280px] overflow-hidden md:order-2 md:min-h-0">
             <Image
-              src="/mower2.png"
-              alt="Lawn mower in use on a landscaped yard"
+              src="/hero-marketplace-v1.webp"
+              alt="Marketplace selection featuring an e-bike, camera, gaming console, fashion, collectible, sports gear, and furniture"
               fill
               priority
               sizes="(max-width: 767px) 100vw, 45vw"

@@ -62,11 +62,11 @@ const NewsletterSection = () => {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Join the Deel Depot Outdoor List
+            Join the Deel Depot Finds List
           </h2>
 
           <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Get early access to new lawn mowers, garden equipment, power tools, and limited-time offers. Useful updates for your next project—never inbox clutter.
+            Get early access to new marketplace arrivals, rare collectibles, fashion, cameras, gaming, tech deals, and limited-time offers—never inbox clutter.
           </p>
 
           <form onSubmit={handleSubmit} className="max-w-md mx-auto">
@@ -127,7 +127,7 @@ const NewsletterSection = () => {
           </form>
 
           <p className="text-white/60 text-sm mt-6 opacity-80">
-            Project-ready updates only. Unsubscribe anytime.
+            Fresh finds and useful updates only. Unsubscribe anytime.
           </p>
         </div>
       </div>

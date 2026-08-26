@@ -25,9 +25,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Deel Depot - Power Your Outdoor and Home Projects With Confidence",
-  description: "Shop lawn mowers, power tools, portable generators, and garden essentials at Deel Depot. Reliable outdoor equipment for every task. Fast shipping, fair prices, and secure checkout.",
-  keywords: "Deel Depot, lawn mowers, power tools, portable generators, garden equipment, outdoor power equipment, ride mowers, garden essentials, outdoor tools, home improvement, power equipment",
+  title: "Deel Depot - Great Deals Across One Marketplace",
+  description: "Shop e-bikes, cameras, gaming consoles, electronics, collectibles, fashion, accessories, furniture, sports gear, and more at Deel Depot.",
+  keywords: "Deel Depot, online marketplace, e-bikes, cameras, gaming consoles, electronics, collectibles, fashion, high fashion, accessories, furniture, sports gear, marketplace deals",
   authors: [{ name: "Deel Depot" }],
   creator: "Deel Depot",
   publisher: "Deel Depot",
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://deeldepot.com"),
   openGraph: {
-    title: "Deel Depot - Power Your Outdoor and Home Projects With Confidence",
-    description: "Shop lawn mowers, power tools, portable generators, and garden essentials at Deel Depot. Reliable outdoor equipment for every task.",
+    title: "Deel Depot - Great Deals Across One Marketplace",
+    description: "Discover e-bikes, cameras, gaming consoles, electronics, collectibles, fashion, furniture, sports gear, and more at Deel Depot.",
     url: "https://deeldepot.com",
     siteName: "Deel Depot",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: "/g7x.jpeg",
         width: 1200,
         height: 630,
-        alt: "Deel Depot - Outdoor Power Equipment & Garden Essentials",
+        alt: "Deel Depot multi-category marketplace",
       },
     ],
     locale: "en_US",
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Deel Depot - Power Your Outdoor and Home Projects With Confidence",
-    description: "Shop lawn mowers, power tools, portable generators, and garden essentials at Deel Depot. Reliable outdoor equipment for every task.",
+    title: "Deel Depot - Great Deals Across One Marketplace",
+    description: "Discover e-bikes, cameras, gaming consoles, electronics, collectibles, fashion, furniture, sports gear, and more at Deel Depot.",
     images: ["/g7x.jpeg"],
   },
   robots: {
@@ -109,7 +109,7 @@ export default function RootLayout({
                 "name": "Deel Depot",
                 "url": "https://deeldepot.com",
                 "logo": "https://deeldepot.com/logosvg.svg",
-                "description": "Deel Depot - Power Your Outdoor and Home Projects With Confidence. Discover reliable lawn mowers, power tools, generators, and garden essentials.",
+                "description": "Deel Depot is a multi-category marketplace for e-bikes, cameras, gaming consoles, electronics, collectibles, fashion, accessories, furniture, sports gear, and more.",
                 "sameAs": [
                   "https://www.tiktok.com/@deel_depot",
                   "https://www.instagram.com/deel_depot/",
@@ -156,7 +156,7 @@ export default function RootLayout({
                 "@type": "WebSite",
                 "name": "Deel Depot",
                 "url": "https://deeldepot.com",
-                "description": "Deel Depot - Power Your Outdoor and Home Projects With Confidence. Discover reliable lawn mowers, power tools, generators, and garden essentials.",
+                "description": "Discover standout deals, everyday essentials, and unique finds across the Deel Depot marketplace.",
                 "potentialAction": {
                   "@type": "SearchAction",
                   "target": {

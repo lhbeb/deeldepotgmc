@@ -20,7 +20,7 @@ export default async function FashionPage() {
             <div className="container mx-auto px-4 py-8">
               <h1 className="text-3xl md:text-4xl font-bold text-[#262626] mb-2">Fashion</h1>
               <p className="text-gray-600">
-                Discover our curated selection of fashion products
+                Shop everyday fashion, high-fashion pieces, footwear, bags, jewellery, and accessories
               </p>
             </div>
           </div>
@@ -46,4 +46,3 @@ export default async function FashionPage() {
     );
   }
 }
-

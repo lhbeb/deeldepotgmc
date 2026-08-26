@@ -38,7 +38,7 @@ export default async function HomePage() {
       <CategorySection
         products={featuredProducts}
         title="Featured Products"
-        subtitle="Our top picks, handpicked just for you."
+        subtitle="Standout picks from across the marketplace, selected for you."
         maxDisplay={FEATURED_PRODUCT_LIMIT}
         shuffleForVisitor
         visitorShuffleKey="home-featured"
@@ -53,9 +53,9 @@ export default async function HomePage() {
             sectionId="lawn-garden-equipment"
             title=""
             editorialCard={{
-              title: 'Reliable Power for Every Yard',
+              title: 'Deals Worth Discovering',
               description:
-                'Deel Depot lawn mowers are designed to deliver consistent performance and smooth cutting for lawns of all sizes. Built with durability and efficiency in mind, they make yard maintenance easier and more manageable. Whether you prefer gas or cordless options, our lawn mowers provide the strength and reliability you need for a clean, well-maintained lawn every time.',
+                'From everyday essentials to standout finds, Deel Depot brings together products worth discovering at prices worth checking. Explore fresh arrivals, compare your options, and find the right deal for you.',
             }}
             randomizeForVisitor
             visitorShuffleKey="home-lawn-garden"
@@ -68,7 +68,7 @@ export default async function HomePage() {
           <ProductGrid
             products={smallToolProducts}
             sectionId="durable-tools"
-            title="Durable Tools for Every Task"
+            title="More Deals to Explore"
             randomizeForVisitor
             visitorShuffleKey="home-durable-tools"
           />
