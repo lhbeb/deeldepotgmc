@@ -3,7 +3,6 @@ import { supabaseAdmin } from '@/lib/supabase/server';
 import AdmZip from 'adm-zip';
 import * as path from 'path';
 
-const MAX_ZIP_SIZE = 8 * 1024 * 1024; // 8MB
 const STORAGE_BUCKET = 'product-images';
 
 interface ProductJson {
@@ -404,14 +403,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate file size (8MB limit)
-    if (zipFile.size > MAX_ZIP_SIZE) {
-      return NextResponse.json(
-        { error: `ZIP file too large. Maximum size is ${MAX_ZIP_SIZE / 1024 / 1024}MB.` },
-        { status: 400 }
-      );
-    }
-
     if (zipFile.size === 0) {
       return NextResponse.json(
         { error: 'ZIP file is empty' },
@@ -504,4 +495,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

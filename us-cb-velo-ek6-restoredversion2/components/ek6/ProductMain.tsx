@@ -64,8 +64,10 @@ export function ProductMain() {
       className="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-6 lg:px-8"
     >
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-20">
-        <div className="min-w-0 space-y-4 lg:sticky lg:top-24">
-          <ProductGallery activeIndex={galleryIndex} onActiveChange={setGalleryIndex} />
+        <div className="min-w-0 self-stretch space-y-4">
+          <div className="ek6-product-gallery-sticky">
+            <ProductGallery activeIndex={galleryIndex} onActiveChange={setGalleryIndex} />
+          </div>
           <div className="grid grid-cols-1 gap-4 rounded-xl border border-zinc-100 bg-zinc-50/80 p-6 sm:grid-cols-2">
             <div className="group flex items-center gap-4">
               <div className="relative h-10 w-10 shrink-0 transition-transform duration-300 group-hover:scale-110">

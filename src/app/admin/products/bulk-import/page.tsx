@@ -74,14 +74,6 @@ export default function BulkImportPage() {
     setUploading(true);
     setUploadProgress('Preparing upload...');
 
-    // Validate file size (8MB limit)
-    const MAX_SIZE = 8 * 1024 * 1024; // 8MB
-    if (file.size > MAX_SIZE) {
-      setError(`File size exceeds 8MB limit. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB`);
-      setUploading(false);
-      return;
-    }
-
     if (file.size === 0) {
       setError('ZIP file is empty');
       setUploading(false);
@@ -218,7 +210,7 @@ export default function BulkImportPage() {
             <div className="flex items-start gap-2">
               <span className="font-semibold text-[#0046be]">3.</span>
               <div>
-                <strong>Upload ZIP file:</strong> Maximum size is 8MB per ZIP. Images will be automatically uploaded to Supabase Storage.
+                <strong>Upload ZIP file:</strong> ZIP files are not restricted by an application-level size limit. Images will be automatically uploaded to Supabase Storage.
               </div>
             </div>
             <div className="flex items-start gap-2">
@@ -274,7 +266,7 @@ export default function BulkImportPage() {
                     Drag and drop your ZIP file here, or click to select
                   </p>
                   <p className="text-sm text-gray-500 mt-2">
-                    Maximum file size: 8MB
+                    No application-enforced file-size limit
                   </p>
                 </div>
                 <div className="mt-4">
@@ -368,4 +360,3 @@ export default function BulkImportPage() {
     </AdminLayout>
   );
 }
-

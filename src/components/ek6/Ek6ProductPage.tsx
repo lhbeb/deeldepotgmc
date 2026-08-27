@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import type { Product } from "@/types/product";
 import { ProductSelectionProvider } from "@/contexts/ProductSelectionContext";
 import { ProductMain } from "./ProductMain";
@@ -15,6 +16,11 @@ import { CustomerReviewsSection } from "./CustomerReviewsSection";
 import { StickyBuyBar } from "./StickyBuyBar";
 
 export default function Ek6ProductPage({ product }: { product: Product }) {
+  useEffect(() => {
+    document.body.classList.add("ek6-product-route");
+    return () => document.body.classList.remove("ek6-product-route");
+  }, []);
+
   return (
     <ProductSelectionProvider product={product}>
       <div className="ek6-product-page bg-white text-zinc-900 selection:bg-[#f5970c] selection:text-[#030B19]">

@@ -118,7 +118,7 @@ export function ProductReviewSlider() {
               priority={i === 0}
             />
           ))}
-          <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/25" />
         </div>
 
         <button

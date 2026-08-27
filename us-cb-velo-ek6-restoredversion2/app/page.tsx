@@ -35,7 +35,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="flex min-h-screen flex-col bg-white font-sans selection:bg-blue-600 selection:text-white">
+      <div className="ek6-product-page flex min-h-screen flex-col bg-white font-sans selection:bg-blue-600 selection:text-white">
         <FlashSaleBanner />
         <SiteHeader />
         <StickyBuyBar />

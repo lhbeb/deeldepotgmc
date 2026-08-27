@@ -102,7 +102,7 @@ export function FeaturesAndBox() {
         </div>
       </AccordionRow>
 
-      <div className="flex justify-center pt-6">
+      <div className="mt-4 flex justify-center py-7 sm:py-9">
         <FooterPaymentIcons />
       </div>
     </div>

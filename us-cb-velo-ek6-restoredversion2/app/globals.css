@@ -50,6 +50,15 @@ body {
   display: none;
 }
 
+/* Keep the EK6 media column visible below the site header and its fixed buy bar. */
+@media (min-width: 1024px) {
+  .ek6-product-page .ek6-product-gallery-sticky {
+    position: sticky;
+    top: calc(var(--ek6-site-header-bottom, 0px) + 5rem);
+    z-index: 10;
+  }
+}
+
 /* Drawer / overlay layers (reference uses z-100 / z-101) */
 .z-drawer-overlay {
   z-index: 100;

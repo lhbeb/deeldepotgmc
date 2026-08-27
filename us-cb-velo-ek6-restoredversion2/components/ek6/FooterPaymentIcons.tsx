@@ -2,7 +2,7 @@
 
 export function FooterPaymentIcons() {
   return (
-    <div className="mx-auto flex max-w-lg flex-wrap items-center justify-center gap-2 opacity-90">
+    <div className="mx-auto flex max-w-lg flex-wrap items-center justify-center gap-3 opacity-100 sm:gap-4">
       <div className="flex items-center justify-center">
         <svg
           className="icon icon--full-color"

@@ -38,6 +38,9 @@ export function StickyBuyBar() {
 
     const update = () => {
       const bottom = getSiteHeaderBottomPx();
+      document
+        .querySelector<HTMLElement>(".ek6-product-page")
+        ?.style.setProperty("--ek6-site-header-bottom", `${bottom}px`);
       setHeaderOffsetPx(bottom);
       setVisible(sentinel.getBoundingClientRect().top < bottom);
     };
