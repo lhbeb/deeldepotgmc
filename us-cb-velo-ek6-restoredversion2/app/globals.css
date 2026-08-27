@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*
+  Design tokens + utilities mirroring https://cybervelopro.com/ek6
+  (source uses Tailwind transitions: duration-200/300/500/700, ease-out, ease-in-out)
+*/
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --cb-blue: #2563eb;
+  --cb-blue-hover: #1d4ed8;
+  --cb-amber: #f59e0b;
+  --cb-zinc-100: #f4f4f5;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 200ms;
+  --dur-ui: 300ms;
+  --dur-panel: 500ms;
+  --dur-image: 700ms;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background-color: rgb(37 99 235);
+  color: white;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Horizontal snap carousels hide scrollbar (matches .no-scrollbar on reference) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Drawer / overlay layers (reference uses z-100 / z-101) */
+.z-drawer-overlay {
+  z-index: 100;
+}
+.z-drawer-panel {
+  z-index: 101;
+}
+
+/*
+  Product video — scroll-driven (--product-video-p 0→1→0 as section crosses viewport):
+  A: shell max-width 90%, frame radius 32px, scale(1)
+  B: shell max-width 99.553%, frame radius 1.43033px, scale(1.09553)
+*/
+.product-video-section {
+  --product-video-p: 0;
+}
+
+.product-video-shell {
+  width: 100%;
+  max-width: calc(90% + 9.553% * var(--product-video-p));
+}
+
+.product-video-frame {
+  transform-origin: center center;
+  border-radius: calc(32px - 30.56967px * var(--product-video-p));
+  transform: scale(calc(1 + 0.09553 * var(--product-video-p)));
+}
+
+/* Review image lightbox (CustomerReviewsSection / ProductReviewSlider) */
+@keyframes review-image-lightbox-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes review-image-lightbox-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.review-image-lightbox-overlay {
+  animation: review-image-lightbox-fade var(--dur-ui) var(--ease-out) forwards;
+}
+
+.review-image-lightbox-inner {
+  animation: review-image-lightbox-zoom var(--dur-ui) var(--ease-out) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .product-video-section {
+    --product-video-p: 0 !important;
+  }
+}
