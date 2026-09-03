@@ -5,7 +5,8 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { trackPixelEvent } from "@/lib/pixel";
 
-export const FB_PIXEL_ID = "869199797850063";
+export const FB_PIXEL_ID =
+  process.env.NEXT_PUBLIC_META_PIXEL_ID || "1320756103302554";
 
 export default function FacebookPixel() {
   const pathname = usePathname();
@@ -34,7 +35,6 @@ export default function FacebookPixel() {
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '${FB_PIXEL_ID}');
-            fbq('track', 'PageView');
           `,
         }}
       />
