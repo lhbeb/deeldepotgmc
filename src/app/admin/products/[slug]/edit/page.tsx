@@ -19,6 +19,8 @@ import { PRODUCT_COLLECTION_OPTIONS } from '@/lib/productCollections';
 import { PRODUCT_CONDITIONS, normalizeConditionValue } from '@/lib/conditions';
 import { MARKET_OPTIONS, MARKET_CURRENCY_MAP } from '@/lib/markets';
 import AdminSellerReviewsEditor from '@/components/AdminSellerReviewsEditor';
+import { bundleOptions } from '@/lib/ek6-data';
+import { EK6_PRODUCT_SLUG } from '@/lib/ek6-product';
 
 const slugify = (value: string) =>
   value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -134,6 +136,7 @@ export default function EditProductPage() {
     sizes_womens: '',
     rotate_links: false,
     checkout_links: [] as string[],
+    ek6_bundle_checkout_links: ['', '', ''] as string[],
     metaTitle: '', metaDescription: '', metaKeywords: '',
     metaOgTitle: '', metaOgDescription: '', metaOgImage: '',
     metaTwitterTitle: '', metaTwitterDescription: '', metaTwitterImage: '',
@@ -193,6 +196,10 @@ export default function EditProductPage() {
         sizes_womens: data.meta?.sizes_womens || '',
         rotate_links: data.meta?.rotate_links ?? false,
         checkout_links: data.meta?.checkout_links || (data.checkoutLink && data.checkoutLink !== '#' ? [data.checkoutLink] : ['']),
+        ek6_bundle_checkout_links: Array.from(
+          { length: bundleOptions.length },
+          (_, index) => data.meta?.ek6_bundle_checkout_links?.[index] || (index === 0 ? data.checkoutLink || '' : ''),
+        ),
         metaTitle: data.meta?.title || '',
         metaDescription: data.meta?.description || '',
         metaKeywords: data.meta?.keywords || '',
@@ -296,13 +303,23 @@ export default function EditProductPage() {
       }
 
       const rotationSupported = supportsCheckoutLinkRotation(formData.checkout_flow);
-      const rotationEnabled = rotationSupported && formData.rotate_links;
+      const usesEk6BundleLinks = slug === EK6_PRODUCT_SLUG && formData.checkout_flow === 'buymeacoffee';
+      const rotationEnabled = !usesEk6BundleLinks && rotationSupported && formData.rotate_links;
       const sanitizedLinks = formData.checkout_links.map(l => l.trim()).filter(Boolean);
+      const ek6BundleLinks = formData.ek6_bundle_checkout_links.map(link => link.trim());
       const primaryCheckoutLink = formData.checkout_flow === 'paypal-api'
         ? ((formData.checkout_link || '').trim() || 'https://www.paypal.com/')
+        : usesEk6BundleLinks
+          ? (ek6BundleLinks[0] || '')
         : rotationEnabled
           ? (sanitizedLinks[0] || '')
           : (formData.checkout_link || '');
+
+      if (usesEk6BundleLinks && (ek6BundleLinks.length !== bundleOptions.length || ek6BundleLinks.some(link => !link))) {
+        setError('All three EK6 Buy Me a Coffee checkout links are required.');
+        setSaving(false);
+        return;
+      }
 
       if (rotationEnabled && sanitizedLinks.length === 0) {
         setError('At least one checkout link is required when rotation is enabled.');
@@ -329,6 +346,9 @@ export default function EditProductPage() {
       // Include Link Rotation
       meta.rotate_links = rotationEnabled;
       meta.checkout_links = rotationEnabled ? sanitizedLinks : [];
+      if (slug === EK6_PRODUCT_SLUG) {
+        meta.ek6_bundle_checkout_links = ek6BundleLinks;
+      }
       // Add other meta fields if they have values
       ['Title', 'Description', 'Keywords', 'OgTitle', 'OgDescription', 'OgImage', 'TwitterTitle', 'TwitterDescription', 'TwitterImage']
         .forEach(key => {
@@ -407,6 +427,7 @@ export default function EditProductPage() {
           sizes_womens: updatedProduct.meta?.sizes_womens ?? prev.sizes_womens,
           rotate_links: updatedProduct.meta?.rotate_links ?? prev.rotate_links,
           checkout_links: updatedProduct.meta?.checkout_links ?? prev.checkout_links,
+          ek6_bundle_checkout_links: updatedProduct.meta?.ek6_bundle_checkout_links ?? prev.ek6_bundle_checkout_links,
         }));
       }
 
@@ -444,7 +465,8 @@ export default function EditProductPage() {
   const discount = formData.original_price && parseFloat(formData.original_price) > parseFloat(formData.price || '0')
     ? Math.round((1 - parseFloat(formData.price || '0') / parseFloat(formData.original_price)) * 100)
     : null;
-  const rotationSupported = supportsCheckoutLinkRotation(formData.checkout_flow);
+  const usesEk6BundleLinks = slug === EK6_PRODUCT_SLUG && formData.checkout_flow === 'buymeacoffee';
+  const rotationSupported = !usesEk6BundleLinks && supportsCheckoutLinkRotation(formData.checkout_flow);
 
   return (
     <AdminLayout>
@@ -638,7 +660,35 @@ export default function EditProductPage() {
                 </div>
               )}
 
-              {formData.checkout_flow !== 'paypal-api' && (!rotationSupported || !formData.rotate_links ? (
+              {usesEk6BundleLinks ? (
+                <div className="space-y-4 rounded-xl border border-amber-200 bg-amber-50/60 p-4">
+                  <div>
+                    <label className="block text-sm font-bold text-gray-800">EK6 Buy Me a Coffee Checkout Links</label>
+                    <p className="mt-1 text-xs text-gray-600">Each bundle redirects to its own payment link. All three links are required.</p>
+                  </div>
+                  {bundleOptions.map((bundle, index) => (
+                    <Field
+                      key={bundle.id}
+                      label={`${bundle.title}${bundle.badge ? ` — ${bundle.badge}` : ''}`}
+                      hint={`${bundle.save} • ${bundle.price} (was ${bundle.compare})`}
+                      required
+                    >
+                      <input
+                        type="url"
+                        value={formData.ek6_bundle_checkout_links[index] || ''}
+                        onChange={(e) => {
+                          const links = [...formData.ek6_bundle_checkout_links];
+                          links[index] = e.target.value;
+                          updateField('ek6_bundle_checkout_links', links);
+                        }}
+                        placeholder={`https://www.buymeacoffee.com/.../ek6-${bundle.bundleQty}`}
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#090A28] focus:border-[#090A28] outline-none transition-all bg-white"
+                        required
+                      />
+                    </Field>
+                  ))}
+                </div>
+              ) : formData.checkout_flow !== 'paypal-api' && (!rotationSupported || !formData.rotate_links ? (
                 <Field label="Checkout Link">
                   <input
                     type="url"

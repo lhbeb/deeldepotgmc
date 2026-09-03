@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { accessories, bundleOptions } from "@/lib/ek6-data";
+import { bundleOptions } from "@/lib/ek6-data";
 import { addToCart } from "@/utils/cart";
 import type { Product } from "@/types/product";
 
@@ -30,11 +30,8 @@ type Ctx = {
   setBikeColorAt: (index: number, id: BikeColor) => void;
   bundleId: string;
   setBundleId: (id: string) => void;
-  /** Optional accessory titles → selected (mandatory ones are always added to URL). */
-  selectedAccessories: Record<string, boolean>;
-  toggleAccessory: (title: string) => void;
   /** Builds the Checkout Champ URL for the current selection. */
-  buildCheckoutUrl: (includeProtection?: boolean) => string;
+  buildCheckoutUrl: () => string;
   reset: () => void;
 };
 
@@ -50,7 +47,6 @@ export function ProductSelectionProvider({ children, product }: { children: Reac
   const [bundleId, setBundleIdState] = useState("1");
   const [bikeColors, setBikeColors] = useState<BikeColor[]>(["silver"]);
   const [galleryIndex, setGalleryIndex] = useState(COLOR_GALLERY_INDEX.silver);
-  const [selectedAccessories, setSelectedAccessories] = useState<Record<string, boolean>>({});
 
   const color = bikeColors[0] ?? "silver";
 
@@ -76,21 +72,14 @@ export function ProductSelectionProvider({ children, product }: { children: Reac
     setBikeColorAt(0, id);
   }, [setBikeColorAt]);
 
-  const toggleAccessory = useCallback((title: string) => {
-    setSelectedAccessories((prev) => ({ ...prev, [title]: !prev[title] }));
-  }, []);
-
-  const buildCheckoutUrl = useCallback((includeProtection?: boolean) => {
+  const buildCheckoutUrl = useCallback(() => {
     const bundle = bundleOptions.find((b) => b.id === bundleId);
+    const bundleIndex = bundleOptions.findIndex((option) => option.id === bundleId);
     const basePrice = bundle ? Number(bundle.price.replace(/[^0-9.]/g, "")) : product.price;
-    const chosenAccessories = accessories.filter(
-      (accessory) => !accessory.mandatory && selectedAccessories[accessory.title],
-    );
-    const accessoryTotal = chosenAccessories.reduce(
-      (sum, accessory) => sum + Number(accessory.price.replace(/[^0-9.]/g, "")),
-      0,
-    );
-    const protectionTotal = includeProtection ? 18.99 : 0;
+    const checkoutFlow = product.checkoutFlow || "buymeacoffee";
+    const bundleCheckoutLink = checkoutFlow === "buymeacoffee"
+      ? product.meta?.ek6_bundle_checkout_links?.[bundleIndex]?.trim()
+      : undefined;
     const colorSummary = bikeColors
       .map((bikeColor, index) => `Bike ${index + 1}: ${bikeColor}`)
       .join(", ");
@@ -98,25 +87,23 @@ export function ProductSelectionProvider({ children, product }: { children: Reac
       bundle?.title ?? "1x EK6 Step-Through",
       colorSummary,
       "Rear basket (free gift)",
-      ...chosenAccessories.map((accessory) => accessory.title),
-      ...(includeProtection ? ["Shipping protection"] : []),
     ].join(" · ");
 
     addToCart({
       ...product,
-      price: Number((basePrice + accessoryTotal + protectionTotal).toFixed(2)),
-      checkoutFlow: "buymeacoffee",
+      price: Number(basePrice.toFixed(2)),
+      checkoutLink: bundleCheckoutLink || product.checkoutLink,
+      checkoutFlow,
       selectedSize: optionSummary,
     } as Product & { selectedSize: string });
 
     return "/checkout";
-  }, [bikeColors, bundleId, product, selectedAccessories]);
+  }, [bikeColors, bundleId, product]);
 
   const reset = useCallback(() => {
     setBundleIdState("1");
     setBikeColors(["silver"]);
     setGalleryIndex(COLOR_GALLERY_INDEX.silver);
-    setSelectedAccessories({});
     if (typeof window !== "undefined") {
       window.history.replaceState(null, "", window.location.pathname + window.location.search);
     }
@@ -132,12 +119,10 @@ export function ProductSelectionProvider({ children, product }: { children: Reac
       setBikeColorAt,
       bundleId,
       setBundleId,
-      selectedAccessories,
-      toggleAccessory,
       buildCheckoutUrl,
       reset,
     }),
-    [color, bikeColors, galleryIndex, selectColor, setBikeColorAt, bundleId, setBundleId, selectedAccessories, toggleAccessory, buildCheckoutUrl, reset],
+    [color, bikeColors, galleryIndex, selectColor, setBikeColorAt, bundleId, setBundleId, buildCheckoutUrl, reset],
   );
 
   return <ProductSelectionContext.Provider value={value}>{children}</ProductSelectionContext.Provider>;

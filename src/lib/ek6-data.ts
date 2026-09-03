@@ -77,42 +77,7 @@ export const accessories: {
       wooProductId: 43,
       mandatory: true,
     },
-    {
-      title: "Rear Rack Bag",
-      subtitle: "",
-      price: "+$19.00",
-      image: `${B}/accessories/rack-bag.png`,
-      checkoutId: 63,
-      wooProductId: 30,
-    },
-    {
-      title: "Bike Chain Lock",
-      subtitle: "",
-      price: "+$9.99",
-      image: `${B}/accessories/chain-lock.jpg`,
-      checkoutId: 65,
-      wooProductId: 32,
-    },
-    {
-      title: "E-bike Child Seat",
-      subtitle: "",
-      price: "+$29.90",
-      image: `${B}/accessories/child-seat.webp`,
-      checkoutId: 67,
-      wooProductId: 34,
-    },
-    {
-      title: "E-Bike Phone Holder",
-      subtitle: "",
-      price: "+$9.90",
-      image: `${B}/accessories/phone-holder.webp`,
-      checkoutId: 69,
-      wooProductId: 36,
-    },
   ];
-
-/** WooCommerce product ID for Shipping Protection add-on ($18.99) */
-export const SHIPPING_PROTECTION_WOO_ID = 47;
 
 export const rideChoices: { src: string; alt: string }[] = [
   { src: `${B}/ride/01.jpg`, alt: "Ride Choice 1" },

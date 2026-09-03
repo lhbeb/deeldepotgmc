@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AccessoryCard, BuyNowButton, Toggle } from "./ui";
+import { useEffect } from "react";
+import { AccessoryCard, BuyNowButton } from "./ui";
 import { accessories, bundleOptions } from "@/lib/ek6-data";
 import { useProductSelection } from "@/contexts/ProductSelectionContext";
 import { trackEvent } from "@/lib/fbq";
 
-/** Accessories, primary CTA, and shipping protection — sits in the product column under spec highlights. */
+/** Included accessory and primary CTA — sits in the product column under spec highlights. */
 export function AccessoriesAndProtection() {
-  const { selectedAccessories, toggleAccessory, buildCheckoutUrl, bundleId } = useProductSelection();
-  const [protection, setProtection] = useState(true);
+  const { buildCheckoutUrl, bundleId } = useProductSelection();
 
   // Fire ViewContent once when the product section mounts
   useEffect(() => {
@@ -33,13 +32,12 @@ export function AccessoriesAndProtection() {
         </div>
         <div className="space-y-3">
           {accessories.map((a, index) => {
-            const selected = a.mandatory ? true : !!selectedAccessories[a.title];
             return (
               <AccessoryCard
                 key={a.title}
                 accent={index === 0 ? "amber" : "blue"}
-                selected={selected}
-                onToggle={() => { if (!a.mandatory) toggleAccessory(a.title); }}
+                selected
+                onToggle={() => {}}
                 title={a.title}
                 imageSrc={a.image}
                 imageAlt={a.title}
@@ -65,12 +63,10 @@ export function AccessoriesAndProtection() {
               currency: "USD",
               value: price,
             });
-            window.location.href = buildCheckoutUrl(protection);
+            window.location.href = buildCheckoutUrl();
           }}
         >Buy Now</BuyNowButton>
         </div>
-
-        <Toggle enabled={protection} onToggle={() => setProtection((p) => !p)} />
       </div>
     </div>
   );

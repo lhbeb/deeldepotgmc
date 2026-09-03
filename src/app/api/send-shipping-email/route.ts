@@ -9,6 +9,8 @@ import {
 } from '@/lib/shipping';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { resolveBaseUrl } from '@/lib/url';
+import { bundleOptions } from '@/lib/ek6-data';
+import { EK6_PRODUCT_SLUG } from '@/lib/ek6-product';
 
 // This endpoint saves the order and attempts to send email with a 5-second timeout
 // If email fails or times out, the order is still saved and email will retry automatically
@@ -80,6 +82,21 @@ async function resolveAssignedCheckoutLink(product: any): Promise<string> {
 
     const defaultLink = productConfig.checkout_link || fallbackLink;
     const meta = productConfig.meta || {};
+    const ek6BundleLinks = sanitizeCheckoutLinks(meta.ek6_bundle_checkout_links);
+
+    if (
+      product.slug === EK6_PRODUCT_SLUG
+      && (product.checkoutFlow || product.checkout_flow) === 'buymeacoffee'
+      && ek6BundleLinks.length === bundleOptions.length
+    ) {
+      const selectedOptions = typeof product.selectedSize === 'string' ? product.selectedSize : '';
+      const bundleIndex = bundleOptions.findIndex(bundle => selectedOptions.includes(bundle.title));
+
+      if (bundleIndex >= 0) {
+        return ek6BundleLinks[bundleIndex] || defaultLink;
+      }
+    }
+
     const rotatedLinks = sanitizeCheckoutLinks(meta.checkout_links);
 
     if (!meta.rotate_links || rotatedLinks.length === 0) {

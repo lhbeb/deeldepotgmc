@@ -6,4 +6,3 @@ export { FaqAccordion, type FaqAccordionItem, type FaqAccordionProps } from "./F
 export { FeatureHighlightCard, type FeatureHighlightCardProps } from "./FeatureHighlightCard";
 export { RadioCard, type RadioCardProps } from "./RadioCard";
 export { SpecificationTable, type SpecRow, type SpecificationTableProps } from "./SpecificationTable";
-export { Toggle, type ToggleProps } from "./Toggle";

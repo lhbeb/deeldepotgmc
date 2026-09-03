@@ -52,6 +52,7 @@ export interface Product {
     sizes_womens?: string;
     rotate_links?: boolean;
     checkout_links?: string[];
+    ek6_bundle_checkout_links?: string[];
     gmc_enabled?: boolean;
   };
   published?: boolean; // Extracted from meta.published for easier access
