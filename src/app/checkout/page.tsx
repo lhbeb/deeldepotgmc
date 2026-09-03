@@ -18,10 +18,27 @@ import { clearCart, getCartItem } from '@/utils/cart';
 import type { CartItem } from '@/utils/cart';
 import { debugError, debugLog } from '@/utils/debug';
 import { preventScrollOnClick } from '@/utils/scrollUtils';
-import { trackPixelEvent } from '@/lib/pixel';
-import { usesCountryFirstAddress } from '@/lib/shipping';
+import { META_CHECKOUT_ORDER_KEY, trackPixelEvent } from '@/lib/pixel';
 
 const REDIRECT_DELAY_MS = 4000;
+
+function recordCheckoutAnalytics(orderId: string, product: Product): void {
+  if (typeof window === 'undefined') return;
+  const trackingKey = `meta_initiate_checkout_tracked:${orderId}`;
+  sessionStorage.setItem(META_CHECKOUT_ORDER_KEY, orderId);
+  if (sessionStorage.getItem(trackingKey)) return;
+
+  trackPixelEvent('InitiateCheckout', {
+    content_ids: [product.slug],
+    content_name: product.title,
+    content_type: 'product',
+    value: product.price,
+    currency: product.currency || 'USD',
+    num_items: 1,
+    order_id: orderId,
+  }, { orderId });
+  sessionStorage.setItem(trackingKey, '1');
+}
 
 const CheckoutPage: React.FC = () => {
   const router = useRouter();
@@ -80,15 +97,6 @@ const CheckoutPage: React.FC = () => {
       );
       setCartItem(item);
 
-      if (item.product) {
-        trackPixelEvent('InitiateCheckout', {
-          content_ids: [item.product.slug],
-          content_name: item.product.title,
-          value: item.product.price,
-          currency: item.product.currency || 'USD',
-        });
-      }
-
       debugLog('CheckoutPage: useEffect', 'Cart item set successfully', 'log');
 
       if (item.product?.sellerId) {
@@ -135,18 +143,8 @@ const CheckoutPage: React.FC = () => {
       const controller = new AbortController();
       timeoutId = setTimeout(() => controller.abort(), 30000);
 
-      const requestShippingData = usesCountryFirstAddress(product.checkoutFlow)
-        ? shippingData
-        : {
-            streetAddress: shippingData.streetAddress,
-            city: shippingData.city,
-            zipCode: shippingData.zipCode,
-            state: shippingData.state,
-            email: shippingData.email,
-          };
-
       const requestBody = {
-        shippingData: requestShippingData,
+        shippingData,
         product: {
           title: product.title,
           price: product.price,
@@ -200,6 +198,10 @@ const CheckoutPage: React.FC = () => {
       }
 
       const result = await response.json();
+
+      if (result.orderId) {
+        recordCheckoutAnalytics(result.orderId, product);
+      }
 
       if (result.success && result.orderId) {
         debugLog(
@@ -384,7 +386,7 @@ const CheckoutPage: React.FC = () => {
       return;
     }
 
-    const requiredFields: Array<keyof ShippingData> = ['streetAddress', 'city', 'state', 'zipCode'];
+    const requiredFields: Array<keyof ShippingData> = ['phone', 'streetAddress', 'city', 'state', 'zipCode'];
     if (form.requiresFullName) {
       requiredFields.push('fullName');
     }

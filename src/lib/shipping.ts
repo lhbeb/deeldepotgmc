@@ -1,5 +1,6 @@
 export interface ShippingData {
   fullName?: string;
+  phone: string;
   countryCode: string;
   country: string;
   streetAddress: string;
@@ -419,7 +420,7 @@ export function isPaypalCheckoutFlow(checkoutFlow?: string | null): boolean {
 }
 
 export function usesCountryFirstAddress(checkoutFlow?: string | null): boolean {
-  return checkoutFlow === 'kofi' || isPaypalCheckoutFlow(checkoutFlow);
+  return checkoutFlow === 'kofi' || checkoutFlow === 'buymeacoffee' || isPaypalCheckoutFlow(checkoutFlow);
 }
 
 export function getCountryName(countryCode: string): string {
@@ -461,6 +462,7 @@ export function normalizeShippingData(data: Partial<ShippingData>): ShippingData
 
   return {
     fullName: String(data.fullName || '').trim(),
+    phone: String(data.phone || '').trim(),
     countryCode,
     country: String(data.country || (countryCode ? getCountryName(countryCode) : '')).trim(),
     streetAddress: String(data.streetAddress || '').trim(),

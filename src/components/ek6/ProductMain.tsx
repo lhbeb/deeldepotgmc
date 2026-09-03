@@ -10,6 +10,8 @@ import { RadioCard } from "./ui";
 import { useProductSelection } from "@/contexts/ProductSelectionContext";
 import { customerReviews } from "@/lib/ek6-customer-reviews";
 import { bundleOptions, warrantyBadge1k, warrantyBadgeUl } from "@/lib/ek6-data";
+import SellerBadge from "@/components/SellerBadge";
+import type { Product } from "@/types/product";
 
 const orange =
   "radial-gradient(circle at 35% 35%, #ffb347, #ff9f43 40%, #e67e22 75%, #d35400 100%)";
@@ -42,7 +44,7 @@ const colors = [
   { id: "black" as const, label: "Black", g: black },
 ];
 
-export function ProductMain() {
+export function ProductMain({ product }: { product: Product }) {
   const {
     bikeColors,
     galleryIndex,
@@ -118,6 +120,7 @@ export function ProductMain() {
             <h1 className="text-2xl font-bold leading-tight tracking-tight text-zinc-900 md:text-4xl">
               CB VELO EK6 Folding Electric Bike
             </h1>
+            <SellerBadge sellerId={product.sellerId} size="md" showUsername />
             <div className="space-y-3 px-1 pt-1">
               <div className="flex items-center gap-3">
                 <svg

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { CheckCircle, Mail, Clock, Package, ArrowLeft, Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
-import { trackPixelEvent } from '@/lib/pixel';
+import { META_CHECKOUT_ORDER_KEY, trackPixelEvent } from '@/lib/pixel';
 import { CART_STORAGE_KEY, clearCart } from '@/utils/cart';
 
 function ThankYouContent() {
@@ -16,7 +16,11 @@ function ThankYouContent() {
   const isSuccessful = isStaticSuccess || orderDetails?.status === 'paid';
 
   useEffect(() => {
-    const trackPurchaseOnce = (transactionId: string, purchaseData: Record<string, unknown>) => {
+    const trackPurchaseOnce = (
+      transactionId: string,
+      purchaseData: Record<string, unknown>,
+      orderId?: string,
+    ) => {
       const trackingKey = `meta_purchase_tracked:${transactionId}`;
       if (trackedPurchases.current.has(trackingKey) || sessionStorage.getItem(trackingKey)) return;
 
@@ -24,7 +28,7 @@ function ThankYouContent() {
       trackPixelEvent('Purchase', {
         ...purchaseData,
         order_id: transactionId,
-      });
+      }, { orderId });
       sessionStorage.setItem(trackingKey, '1');
     };
 
@@ -32,12 +36,13 @@ function ThankYouContent() {
     // localStorage across that redirect, so capture its value before clearing it.
     if (!sessionId) {
       try {
+        const savedOrderId = sessionStorage.getItem(META_CHECKOUT_ORDER_KEY) || undefined;
         const stored = localStorage.getItem(CART_STORAGE_KEY);
         if (stored) {
           const cartItem = JSON.parse(stored);
           const product = cartItem?.product;
           if (product) {
-            const transactionId = `${product.checkoutFlow || 'external'}-${cartItem.addedAt || product.id || product.slug}`;
+            const transactionId = savedOrderId || `${product.checkoutFlow || 'external'}-${cartItem.addedAt || product.id || product.slug}`;
             trackPurchaseOnce(transactionId, {
               value: product.price || 0,
               currency: product.currency || 'USD',
@@ -45,9 +50,12 @@ function ThankYouContent() {
               content_name: product.title || '',
               content_type: 'product',
               num_items: cartItem.quantity || 1,
-            });
+            }, savedOrderId);
           }
+        } else if (savedOrderId) {
+          trackPurchaseOnce(savedOrderId, {}, savedOrderId);
         }
+        sessionStorage.removeItem(META_CHECKOUT_ORDER_KEY);
       } catch (e) {
         console.error('Purchase pixel error:', e);
       }
@@ -77,7 +85,7 @@ function ThankYouContent() {
               content_ids: [data.orderId || sessionId],
               content_type: 'product',
               num_items: 1,
-            });
+            }, data.orderId);
             clearCart();
           }
         } else {

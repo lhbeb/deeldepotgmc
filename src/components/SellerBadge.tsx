@@ -8,9 +8,10 @@ import type { Seller } from '@/types/seller';
 interface SellerBadgeProps {
   sellerId?: string | null;
   size?: 'sm' | 'md';
+  showUsername?: boolean;
 }
 
-export default function SellerBadge({ sellerId, size = 'sm' }: SellerBadgeProps) {
+export default function SellerBadge({ sellerId, size = 'sm', showUsername = false }: SellerBadgeProps) {
   const [seller, setSeller] = useState<Seller | null>(null);
   const [loading, setLoading] = useState(!!sellerId);
   const fallbackAvatarUrl = '/logo.png';
@@ -43,6 +44,9 @@ export default function SellerBadge({ sellerId, size = 'sm' }: SellerBadgeProps)
   const isDeeldepot = displaySeller.username === 'deeldepot';
   const href = isDeeldepot ? '/' : `/sellers/${displaySeller.username}`;
   const hasAvatar = displaySeller.avatarUrl && displaySeller.avatarUrl !== fallbackAvatarUrl;
+  const sellerLabel = showUsername && !isDeeldepot
+    ? `@${displaySeller.username}`
+    : displaySeller.name;
 
   /* ── sm (product cards) ─────────────────────────────────────────────────── */
   if (size === 'sm') {
@@ -54,7 +58,7 @@ export default function SellerBadge({ sellerId, size = 'sm' }: SellerBadgeProps)
       >
         <span className="text-[11px] text-gray-400">Sold by</span>
         <span className="text-[11px] font-medium text-gray-600 group-hover:text-[#090A28] transition-colors">
-          {displaySeller.name}
+          {sellerLabel}
         </span>
         {isDeeldepot ? (
           <ShieldCheck className="w-3 h-3 flex-shrink-0 text-[#090A28]/50" />
@@ -86,7 +90,7 @@ export default function SellerBadge({ sellerId, size = 'sm' }: SellerBadgeProps)
       {/* Label + name */}
       <span className="text-sm text-gray-400">Sold by</span>
       <span className="text-sm font-medium text-gray-700 group-hover:text-[#090A28] transition-colors">
-        {displaySeller.name}
+        {sellerLabel}
       </span>
 
       {/* Verified tick */}

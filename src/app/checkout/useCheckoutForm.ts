@@ -51,6 +51,7 @@ function inferDefaultCountry(product?: Product | null): { code: string; name: st
 
 const FALLBACK_SHIPPING_DATA: ShippingData = {
   fullName: '',
+  phone: '',
   countryCode: 'US',
   country: 'United States',
   streetAddress: '',
@@ -196,6 +197,8 @@ export function useCheckoutForm(product?: Product | null) {
     product.inStock !== false &&
     shippingData.email &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(shippingData.email) &&
+    shippingData.phone &&
+    shippingData.phone.replace(/\D/g, '').length >= 7 &&
     (!requiresCountry || (
       // Ko-fi: name is collected in Phase 2, skip name check here
       (requiresFullName ? Boolean(shippingData.fullName?.trim()) : true) &&

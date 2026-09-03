@@ -25,7 +25,7 @@ export default function Ek6ProductPage({ product }: { product: Product }) {
     <ProductSelectionProvider product={product}>
       <div className="ek6-product-page bg-white text-zinc-900 selection:bg-[#f5970c] selection:text-[#030B19]">
         <StickyBuyBar />
-        <ProductMain />
+        <ProductMain product={product} />
         <ProductSectionTabs
           specPanel={<SpecTable />}
           geometryPanel={<GeometrySection />}

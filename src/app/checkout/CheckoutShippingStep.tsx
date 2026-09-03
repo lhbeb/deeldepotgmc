@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { FormEventHandler, MouseEvent, ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ChevronDown, Globe2, Mail, Store, Trash, User } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Globe2, Mail, Phone, Store, Trash, User } from 'lucide-react';
 import CheckoutNotifier from '@/components/CheckoutNotifier';
 import CountrySelect from '@/components/CountrySelect';
 import PaypalApiRedirectButton from '@/components/PaypalApiRedirectButton';
@@ -329,6 +329,27 @@ function AddressFields({
     </div>
   );
 
+  const phoneField = (
+    <div>
+      <label htmlFor={fieldId('phone')} className="block text-sm font-semibold text-gray-700 mb-3">
+        {!mobile && <Phone className="inline h-4 w-4 mr-1" />}
+        Phone Number *
+      </label>
+      <input
+        type="tel"
+        id={fieldId('phone')}
+        name="phone"
+        value={form.shippingData.phone}
+        onChange={form.handleInputChange}
+        required
+        minLength={7}
+        className={inputClassName}
+        placeholder="Include country code, e.g. +1 912 555 0123"
+        autoComplete="tel"
+      />
+    </div>
+  );
+
   if (mobile) {
     return (
       <>
@@ -340,6 +361,7 @@ function AddressFields({
         {stateField}
         {zipField}
         {emailField}
+        {phoneField}
       </>
     );
   }
@@ -356,6 +378,7 @@ function AddressFields({
         {zipField}
       </div>
       {emailField}
+      {phoneField}
     </>
   );
 }

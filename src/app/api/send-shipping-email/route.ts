@@ -145,7 +145,7 @@ export async function POST(request: NextRequest) {
   
   try {
     const body = await request.json();
-    console.log('📦 [API] Received request body:', JSON.stringify(body, null, 2));
+    console.log('📦 [API] Received checkout request');
     
     const { shippingData: rawShippingData, product } = body;
 
@@ -163,9 +163,18 @@ export async function POST(request: NextRequest) {
     const shippingData = requiresCountry ? normalizeShippingData(rawShippingData) : rawShippingData;
 
     // Validate shipping data fields
-    if (!shippingData.email || !shippingData.streetAddress || !shippingData.city || !shippingData.state || !shippingData.zipCode) {
+    if (
+      !shippingData.email ||
+      !shippingData.phone ||
+      shippingData.phone.replace(/\D/g, '').length < 7 ||
+      !shippingData.streetAddress ||
+      !shippingData.city ||
+      !shippingData.state ||
+      !shippingData.zipCode
+    ) {
       console.error('❌ [API] Missing required shipping fields:', {
         email: !!shippingData.email,
+        phone: !!shippingData.phone,
         streetAddress: !!shippingData.streetAddress,
         city: !!shippingData.city,
         state: !!shippingData.state,
@@ -236,7 +245,7 @@ export async function POST(request: NextRequest) {
       productPrice: product.price,
       customerName: shippingData.fullName || shippingData.email,
       customerEmail: shippingData.email,
-      customerPhone: undefined, // Phone number was removed from form
+      customerPhone: shippingData.phone,
       shippingAddress: shippingData.streetAddress,
       shippingAddressLine2: shippingData.addressLine2,
       shippingCity: shippingData.city,
