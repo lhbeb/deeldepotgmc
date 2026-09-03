@@ -92,6 +92,7 @@ const Footer = () => {
               <li><Link href="/#featured" className="hover:text-[#f5970c] transition-colors duration-300">Featured</Link></li>
               <li><Link href="/track" className="hover:text-[#f5970c] transition-colors duration-300">Track Order</Link></li>
               <li><Link href="/contact" className="hover:text-[#f5970c] transition-colors duration-300">Contact Us</Link></li>
+              <li><Link href="/lviechat" className="hover:text-[#f5970c] transition-colors duration-300">Live Chat</Link></li>
             </ul>
           </div>
 

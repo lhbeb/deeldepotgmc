@@ -29,6 +29,23 @@ type CheckoutFlow = 'buymeacoffee' | 'kofi' | 'external' | 'stripe' | 'paypal-in
 const ROTATABLE_CHECKOUT_FLOWS: CheckoutFlow[] = ['buymeacoffee', 'kofi', 'external'];
 const supportsCheckoutLinkRotation = (flow: CheckoutFlow) => ROTATABLE_CHECKOUT_FLOWS.includes(flow);
 
+function normalizeEk6BundleCheckoutLinks(value: unknown, fallbackLink = ''): string[][] {
+  const configured = Array.isArray(value) ? value : [];
+
+  return Array.from({ length: bundleOptions.length }, (_, index) => {
+    const entry = configured[index];
+    const links = Array.isArray(entry)
+      ? entry.filter((link): link is string => typeof link === 'string')
+      : typeof entry === 'string'
+        ? [entry]
+        : index === 0 && fallbackLink
+          ? [fallbackLink]
+          : [];
+
+    return links.length > 0 ? links : [''];
+  });
+}
+
 
 // Reusable Section Component
 function Section({
@@ -136,7 +153,7 @@ export default function EditProductPage() {
     sizes_womens: '',
     rotate_links: false,
     checkout_links: [] as string[],
-    ek6_bundle_checkout_links: ['', '', ''] as string[],
+    ek6_bundle_checkout_links: [[''], [''], ['']] as string[][],
     metaTitle: '', metaDescription: '', metaKeywords: '',
     metaOgTitle: '', metaOgDescription: '', metaOgImage: '',
     metaTwitterTitle: '', metaTwitterDescription: '', metaTwitterImage: '',
@@ -196,9 +213,9 @@ export default function EditProductPage() {
         sizes_womens: data.meta?.sizes_womens || '',
         rotate_links: data.meta?.rotate_links ?? false,
         checkout_links: data.meta?.checkout_links || (data.checkoutLink && data.checkoutLink !== '#' ? [data.checkoutLink] : ['']),
-        ek6_bundle_checkout_links: Array.from(
-          { length: bundleOptions.length },
-          (_, index) => data.meta?.ek6_bundle_checkout_links?.[index] || (index === 0 ? data.checkoutLink || '' : ''),
+        ek6_bundle_checkout_links: normalizeEk6BundleCheckoutLinks(
+          data.meta?.ek6_bundle_checkout_links,
+          data.checkoutLink || '',
         ),
         metaTitle: data.meta?.title || '',
         metaDescription: data.meta?.description || '',
@@ -304,19 +321,24 @@ export default function EditProductPage() {
 
       const rotationSupported = supportsCheckoutLinkRotation(formData.checkout_flow);
       const usesEk6BundleLinks = slug === EK6_PRODUCT_SLUG && formData.checkout_flow === 'buymeacoffee';
-      const rotationEnabled = !usesEk6BundleLinks && rotationSupported && formData.rotate_links;
+      const rotationEnabled = rotationSupported && formData.rotate_links;
       const sanitizedLinks = formData.checkout_links.map(l => l.trim()).filter(Boolean);
-      const ek6BundleLinks = formData.ek6_bundle_checkout_links.map(link => link.trim());
+      const ek6BundleLinkGroups = formData.ek6_bundle_checkout_links.map(links =>
+        links.map(link => link.trim()).filter(Boolean),
+      );
       const primaryCheckoutLink = formData.checkout_flow === 'paypal-api'
         ? ((formData.checkout_link || '').trim() || 'https://www.paypal.com/')
         : usesEk6BundleLinks
-          ? (ek6BundleLinks[0] || '')
+          ? (ek6BundleLinkGroups[0]?.[0] || '')
         : rotationEnabled
           ? (sanitizedLinks[0] || '')
           : (formData.checkout_link || '');
 
-      if (usesEk6BundleLinks && (ek6BundleLinks.length !== bundleOptions.length || ek6BundleLinks.some(link => !link))) {
-        setError('All three EK6 Buy Me a Coffee checkout links are required.');
+      if (usesEk6BundleLinks && (
+        ek6BundleLinkGroups.length !== bundleOptions.length
+        || ek6BundleLinkGroups.some(links => links.length === 0)
+      )) {
+        setError('Each EK6 offer requires at least one Buy Me a Coffee checkout link.');
         setSaving(false);
         return;
       }
@@ -345,9 +367,9 @@ export default function EditProductPage() {
       meta.sizes_womens = formData.sizes_womens || null;
       // Include Link Rotation
       meta.rotate_links = rotationEnabled;
-      meta.checkout_links = rotationEnabled ? sanitizedLinks : [];
+      meta.checkout_links = rotationEnabled && !usesEk6BundleLinks ? sanitizedLinks : [];
       if (slug === EK6_PRODUCT_SLUG) {
-        meta.ek6_bundle_checkout_links = ek6BundleLinks;
+        meta.ek6_bundle_checkout_links = ek6BundleLinkGroups;
       }
       // Add other meta fields if they have values
       ['Title', 'Description', 'Keywords', 'OgTitle', 'OgDescription', 'OgImage', 'TwitterTitle', 'TwitterDescription', 'TwitterImage']
@@ -427,7 +449,9 @@ export default function EditProductPage() {
           sizes_womens: updatedProduct.meta?.sizes_womens ?? prev.sizes_womens,
           rotate_links: updatedProduct.meta?.rotate_links ?? prev.rotate_links,
           checkout_links: updatedProduct.meta?.checkout_links ?? prev.checkout_links,
-          ek6_bundle_checkout_links: updatedProduct.meta?.ek6_bundle_checkout_links ?? prev.ek6_bundle_checkout_links,
+          ek6_bundle_checkout_links: normalizeEk6BundleCheckoutLinks(
+            updatedProduct.meta?.ek6_bundle_checkout_links ?? prev.ek6_bundle_checkout_links,
+          ),
         }));
       }
 
@@ -466,7 +490,7 @@ export default function EditProductPage() {
     ? Math.round((1 - parseFloat(formData.price || '0') / parseFloat(formData.original_price)) * 100)
     : null;
   const usesEk6BundleLinks = slug === EK6_PRODUCT_SLUG && formData.checkout_flow === 'buymeacoffee';
-  const rotationSupported = !usesEk6BundleLinks && supportsCheckoutLinkRotation(formData.checkout_flow);
+  const rotationSupported = supportsCheckoutLinkRotation(formData.checkout_flow);
 
   return (
     <AdminLayout>
@@ -664,29 +688,69 @@ export default function EditProductPage() {
                 <div className="space-y-4 rounded-xl border border-amber-200 bg-amber-50/60 p-4">
                   <div>
                     <label className="block text-sm font-bold text-gray-800">EK6 Buy Me a Coffee Checkout Links</label>
-                    <p className="mt-1 text-xs text-gray-600">Each bundle redirects to its own payment link. All three links are required.</p>
+                    <p className="mt-1 text-xs text-gray-600">
+                      Each offer has its own link pool. With rotation enabled, orders are distributed only across links for the selected offer.
+                    </p>
                   </div>
-                  {bundleOptions.map((bundle, index) => (
-                    <Field
-                      key={bundle.id}
-                      label={`${bundle.title}${bundle.badge ? ` — ${bundle.badge}` : ''}`}
-                      hint={`${bundle.save} • ${bundle.price} (was ${bundle.compare})`}
-                      required
-                    >
-                      <input
-                        type="url"
-                        value={formData.ek6_bundle_checkout_links[index] || ''}
-                        onChange={(e) => {
-                          const links = [...formData.ek6_bundle_checkout_links];
-                          links[index] = e.target.value;
-                          updateField('ek6_bundle_checkout_links', links);
-                        }}
-                        placeholder={`https://www.buymeacoffee.com/.../ek6-${bundle.bundleQty}`}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#090A28] focus:border-[#090A28] outline-none transition-all bg-white"
+                  {bundleOptions.map((bundle, bundleIndex) => {
+                    const configuredLinks = formData.ek6_bundle_checkout_links[bundleIndex] || [''];
+                    const visibleLinks = formData.rotate_links ? configuredLinks : configuredLinks.slice(0, 1);
+
+                    return (
+                      <Field
+                        key={bundle.id}
+                        label={`${bundle.title}${bundle.badge ? ` — ${bundle.badge}` : ''}`}
+                        hint={`${bundle.save} • ${bundle.price} (was ${bundle.compare})`}
                         required
-                      />
-                    </Field>
-                  ))}
+                      >
+                        <div className="space-y-2">
+                          {visibleLinks.map((link, linkIndex) => (
+                            <div key={linkIndex} className="flex items-center gap-2">
+                              <input
+                                type="url"
+                                value={link}
+                                onChange={(e) => {
+                                  const groups = formData.ek6_bundle_checkout_links.map(group => [...group]);
+                                  groups[bundleIndex][linkIndex] = e.target.value;
+                                  updateField('ek6_bundle_checkout_links', groups);
+                                }}
+                                placeholder={`https://www.buymeacoffee.com/.../ek6-${bundle.bundleQty}-${linkIndex + 1}`}
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#090A28] focus:border-[#090A28] outline-none transition-all bg-white"
+                                required
+                              />
+                              {formData.rotate_links && configuredLinks.length > 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const groups = formData.ek6_bundle_checkout_links.map(group => [...group]);
+                                    groups[bundleIndex] = groups[bundleIndex].filter((_, index) => index !== linkIndex);
+                                    updateField('ek6_bundle_checkout_links', groups);
+                                  }}
+                                  className="p-2.5 text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-xl border border-red-100 transition-colors"
+                                  aria-label={`Remove checkout link ${linkIndex + 1} for ${bundle.title}`}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              )}
+                            </div>
+                          ))}
+                          {formData.rotate_links && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const groups = formData.ek6_bundle_checkout_links.map(group => [...group]);
+                                groups[bundleIndex] = [...groups[bundleIndex], ''];
+                                updateField('ek6_bundle_checkout_links', groups);
+                              }}
+                              className="flex items-center gap-1.5 text-xs font-bold text-[#090A28] hover:text-[#030B19] bg-white border border-gray-200 px-3 py-2 rounded-lg shadow-sm transition-all"
+                            >
+                              <Plus className="h-3 w-3" /> Add link for this offer
+                            </button>
+                          )}
+                        </div>
+                      </Field>
+                    );
+                  })}
                 </div>
               ) : formData.checkout_flow !== 'paypal-api' && (!rotationSupported || !formData.rotate_links ? (
                 <Field label="Checkout Link">

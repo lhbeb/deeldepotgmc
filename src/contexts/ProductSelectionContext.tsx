@@ -77,8 +77,9 @@ export function ProductSelectionProvider({ children, product }: { children: Reac
     const bundleIndex = bundleOptions.findIndex((option) => option.id === bundleId);
     const basePrice = bundle ? Number(bundle.price.replace(/[^0-9.]/g, "")) : product.price;
     const checkoutFlow = product.checkoutFlow || "buymeacoffee";
+    const configuredBundleLinks = product.meta?.ek6_bundle_checkout_links?.[bundleIndex];
     const bundleCheckoutLink = checkoutFlow === "buymeacoffee"
-      ? product.meta?.ek6_bundle_checkout_links?.[bundleIndex]?.trim()
+      ? (Array.isArray(configuredBundleLinks) ? configuredBundleLinks[0] : configuredBundleLinks)?.trim()
       : undefined;
     const colorSummary = bikeColors
       .map((bikeColor, index) => `Bike ${index + 1}: ${bikeColor}`)

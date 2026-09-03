@@ -11,10 +11,13 @@ declare global {
         HFChatConfig?: {
             chatUrl: string;
             target: string;
-            customerName: string;
-            customerEmail: string;
-            orderId: string;
-            total: string;
+            customerName?: string;
+            customerEmail?: string;
+            orderId?: string;
+            total?: string;
+            color?: string;
+            siteName?: string;
+            siteUrl?: string;
         };
         __hfChatScriptPromise?: Promise<void>;
         __hfChatScriptLoaded?: boolean;

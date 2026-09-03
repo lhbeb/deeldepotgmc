@@ -31,6 +31,12 @@ function sanitizeCheckoutLinks(links: unknown): string[] {
     });
 }
 
+function sanitizeCheckoutLinkGroups(groups: unknown): string[][] {
+  if (!Array.isArray(groups)) return [];
+
+  return groups.map(group => sanitizeCheckoutLinks(Array.isArray(group) ? group : [group]));
+}
+
 async function claimCheckoutLinkRotationIndex(productSlug: string): Promise<number | null> {
   const { data, error } = await supabaseAdmin.rpc('claim_checkout_link_rotation_index', {
     p_product_slug: productSlug,
@@ -82,18 +88,32 @@ async function resolveAssignedCheckoutLink(product: any): Promise<string> {
 
     const defaultLink = productConfig.checkout_link || fallbackLink;
     const meta = productConfig.meta || {};
-    const ek6BundleLinks = sanitizeCheckoutLinks(meta.ek6_bundle_checkout_links);
+    const ek6BundleLinkGroups = sanitizeCheckoutLinkGroups(meta.ek6_bundle_checkout_links);
 
     if (
       product.slug === EK6_PRODUCT_SLUG
       && (product.checkoutFlow || product.checkout_flow) === 'buymeacoffee'
-      && ek6BundleLinks.length === bundleOptions.length
+      && ek6BundleLinkGroups.length === bundleOptions.length
+      && ek6BundleLinkGroups.every(links => links.length > 0)
     ) {
       const selectedOptions = typeof product.selectedSize === 'string' ? product.selectedSize : '';
       const bundleIndex = bundleOptions.findIndex(bundle => selectedOptions.includes(bundle.title));
 
       if (bundleIndex >= 0) {
-        return ek6BundleLinks[bundleIndex] || defaultLink;
+        const selectedOfferLinks = ek6BundleLinkGroups[bundleIndex];
+        if (!meta.rotate_links || selectedOfferLinks.length === 1) {
+          return selectedOfferLinks[0] || defaultLink;
+        }
+
+        const rotationKey = `${product.slug}:offer-${bundleIndex + 1}`;
+        const claimedIndex = await claimCheckoutLinkRotationIndex(rotationKey)
+          ?? await fallbackCheckoutLinkRotationIndex(product.slug);
+
+        if (claimedIndex === null) {
+          return selectedOfferLinks[0] || defaultLink;
+        }
+
+        return selectedOfferLinks[claimedIndex % selectedOfferLinks.length] || defaultLink;
       }
     }
 
