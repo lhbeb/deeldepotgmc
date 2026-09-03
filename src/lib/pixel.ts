@@ -1,6 +1,8 @@
 const META_CAPI_ENDPOINT = "/api/meta/conversions";
 
-function createEventId(eventName: string): string {
+export type MetaPixelEvent = "PageView" | "AddToCart" | "InitiateCheckout" | "Purchase";
+
+function createEventId(eventName: MetaPixelEvent): string {
   const randomPart =
     typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
       ? crypto.randomUUID()
@@ -14,7 +16,7 @@ function createEventId(eventName: string): string {
  * shared event ID to deduplicate the two copies into one conversion.
  */
 export function trackPixelEvent(
-  eventName: string,
+  eventName: MetaPixelEvent,
   params?: Record<string, any>,
   maxRetries = 20
 ): void {

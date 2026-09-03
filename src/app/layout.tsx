@@ -14,7 +14,7 @@ import VisitNotifier from "@/components/VisitNotifier";
 import FacebookPixel from "@/components/FacebookPixel";
 import { AdminRouteCheck, PublicRouteOnly, AdminRouteOnly, CheckoutRouteOnly } from "@/components/AdminRouteCheck";
 import GlobalErrorReporter from "@/components/GlobalErrorReporter";
-import TidioChat from "@/components/TidioChat";
+import LiveChat from "@/components/LiveChat";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -214,7 +214,7 @@ export default function RootLayout({
             async
           />
         </AdminRouteCheck>
-        <TidioChat />
+        <LiveChat />
         <SpeedInsights />
       </body>
     </html>

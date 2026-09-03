@@ -1,28 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
 import { AccessoryCard, BuyNowButton } from "./ui";
 import { accessories, bundleOptions } from "@/lib/ek6-data";
 import { useProductSelection } from "@/contexts/ProductSelectionContext";
 import { trackEvent } from "@/lib/fbq";
+import { EK6_PRODUCT_SLUG } from "@/lib/ek6-product";
 
 /** Included accessory and primary CTA — sits in the product column under spec highlights. */
 export function AccessoriesAndProtection() {
   const { buildCheckoutUrl, bundleId } = useProductSelection();
-
-  // Fire ViewContent once when the product section mounts
-  useEffect(() => {
-    const bundle = bundleOptions.find((b) => b.id === bundleId);
-    const price = bundle ? parseFloat(bundle.price.replace(/[^0-9.]/g, "")) : 199;
-    trackEvent("ViewContent", {
-      content_name: "EK6 Electric Bike",
-      content_ids: [bundle?.checkoutId ?? 1],
-      content_type: "product",
-      currency: "USD",
-      value: price,
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="space-y-6">
@@ -57,8 +43,8 @@ export function AccessoriesAndProtection() {
             const bundle = bundleOptions.find((b) => b.id === bundleId);
             const price = bundle ? parseFloat(bundle.price.replace(/[^0-9.]/g, "")) : 199;
             trackEvent("AddToCart", {
-              content_name: "EK6 Electric Bike",
-              content_ids: [bundle?.checkoutId ?? 1],
+              content_name: bundle?.title || "EK6 Electric Bike",
+              content_ids: [EK6_PRODUCT_SLUG],
               content_type: "product",
               currency: "USD",
               value: price,

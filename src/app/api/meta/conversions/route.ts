@@ -7,7 +7,6 @@ const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "1320756103302554";
 const GRAPH_API_VERSION = process.env.META_GRAPH_API_VERSION || "v26.0";
 const ALLOWED_EVENTS = new Set([
   "PageView",
-  "ViewContent",
   "AddToCart",
   "InitiateCheckout",
   "Purchase",

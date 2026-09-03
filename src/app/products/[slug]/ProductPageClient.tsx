@@ -172,19 +172,6 @@ export default function ProductPageClient({ product: initialProduct }: ProductPa
     setImgLoaded(false);
   }, [activeImage, productImages]);
 
-  // Meta Pixel ViewContent Event
-  useEffect(() => {
-    if (product) {
-      trackPixelEvent('ViewContent', {
-        content_name: product.title,
-        content_ids: [product.slug],
-        content_type: 'product',
-        value: product.price,
-        currency: product.currency || 'USD'
-      });
-    }
-  }, [product]);
-
   const handleAddToCart = async () => {
     debugLog('handleAddToCart', 'Function called', 'log');
 
