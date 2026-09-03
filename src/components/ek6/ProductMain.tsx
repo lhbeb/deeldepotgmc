@@ -64,35 +64,35 @@ export function ProductMain() {
       className="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-6 lg:px-8"
     >
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-20">
-        <div className="min-w-0 self-stretch space-y-4">
+        <div className="min-w-0 self-stretch">
           <div className="ek6-product-gallery-sticky">
             <ProductGallery activeIndex={galleryIndex} onActiveChange={setGalleryIndex} />
-          </div>
-          <div className="grid grid-cols-1 gap-4 rounded-xl border border-zinc-100 bg-zinc-50/80 p-6 sm:grid-cols-2">
-            <div className="group flex items-center gap-4">
-              <div className="relative h-10 w-10 shrink-0 transition-transform duration-300 group-hover:scale-110">
-                <Image src={warrantyBadge1k} alt="1 Year Warranty" fill className="object-contain" sizes="64px" />
+            <div className="mt-6 grid grid-cols-1 gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-3 sm:grid-cols-2 sm:p-4">
+              <div className="group flex min-h-[82px] items-center gap-3 rounded-xl border border-zinc-200/80 bg-white px-4 py-3">
+                <div className="relative h-12 w-12 shrink-0 transition-transform duration-300 group-hover:scale-105">
+                  <Image src={warrantyBadge1k} alt="1 Year Warranty" fill className="object-contain" sizes="64px" />
+                </div>
+                <div className="min-w-0">
+                  <span className="block text-sm font-black leading-5 tracking-tight text-zinc-900">
+                    1 Year Warranty
+                  </span>
+                  <span className="mt-0.5 block text-xs font-medium leading-4 text-zinc-500">
+                    Convenient, Professional Service
+                  </span>
+                </div>
               </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="mb-0.5 text-[13px] font-black leading-tight tracking-tight text-zinc-900">
-                  1 Year Warranty
-                </span>
-                <span className="text-xs font-medium leading-tight text-zinc-500">
-                  Convenient, Professional Service
-                </span>
-              </div>
-            </div>
-            <div className="group flex items-center gap-4">
-              <div className="relative h-10 w-10 shrink-0 transition-transform duration-300 group-hover:scale-110">
-                <Image src={warrantyBadgeUl} alt="TUV Safety Certified" fill className="object-contain" sizes="64px" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="mb-0.5 text-[13px] font-black leading-tight tracking-tight text-zinc-900">
-                  TUV Safety Certified
-                </span>
-                <span className="text-xs font-medium leading-tight text-zinc-500">
-                  Certified in accordance with UL2849/UL2271
-                </span>
+              <div className="group flex min-h-[82px] items-center gap-3 rounded-xl border border-zinc-200/80 bg-white px-4 py-3">
+                <div className="relative h-12 w-12 shrink-0 transition-transform duration-300 group-hover:scale-105">
+                  <Image src={warrantyBadgeUl} alt="TUV Safety Certified" fill className="object-contain" sizes="64px" />
+                </div>
+                <div className="min-w-0">
+                  <span className="block text-sm font-black leading-5 tracking-tight text-zinc-900">
+                    TUV Safety Certified
+                  </span>
+                  <span className="mt-0.5 block text-xs font-medium leading-4 text-zinc-500">
+                    Certified in accordance with UL2849/UL2271
+                  </span>
+                </div>
               </div>
             </div>
           </div>

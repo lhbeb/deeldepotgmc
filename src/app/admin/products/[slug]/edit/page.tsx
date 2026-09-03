@@ -343,7 +343,7 @@ export default function EditProductPage() {
         return;
       }
 
-      if (rotationEnabled && sanitizedLinks.length === 0) {
+      if (rotationEnabled && !usesEk6BundleLinks && sanitizedLinks.length === 0) {
         setError('At least one checkout link is required when rotation is enabled.');
         setSaving(false);
         return;

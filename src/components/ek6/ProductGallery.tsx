@@ -86,7 +86,7 @@ export function ProductGallery({ activeIndex, onActiveChange }: Props) {
         </button>
       </div>
 
-      <div className="overflow-hidden px-1 py-2">
+      <div className="min-h-[104px] overflow-hidden px-1 py-2 sm:min-h-[116px] lg:min-h-[101px]">
         <div className="no-scrollbar flex gap-3 overflow-x-auto">
           {productGallery.map((img, i) => {
             const isActive = activeIndex === i;
