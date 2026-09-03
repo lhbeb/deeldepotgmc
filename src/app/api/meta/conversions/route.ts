@@ -38,6 +38,9 @@ function cleanCustomData(value: unknown): Record<string, unknown> {
   if (typeof input.content_type === "string") {
     output.content_type = input.content_type.slice(0, 100);
   }
+  if (typeof input.order_id === "string") {
+    output.order_id = input.order_id.slice(0, 200);
+  }
   if (typeof input.num_items === "number" && Number.isFinite(input.num_items)) {
     output.num_items = Math.max(0, Math.floor(input.num_items));
   }

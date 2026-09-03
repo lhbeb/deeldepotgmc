@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { CheckCircle, Mail, Clock, Package, ArrowLeft, Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
@@ -11,21 +11,34 @@ function ThankYouContent() {
   const searchParams = useSearchParams();
   const [orderDetails, setOrderDetails] = useState<any>(null);
   const sessionId = searchParams.get('session_id');
+  const trackedPurchases = useRef(new Set<string>());
   const isStaticSuccess = !sessionId;
   const isSuccessful = isStaticSuccess || orderDetails?.status === 'paid';
 
   useEffect(() => {
-    // Non-Stripe returns use cart data for Purchase tracking before clearing checkout state.
-    // Use sessionStorage to prevent duplicate fires on page refresh
-    const alreadyTracked = sessionStorage.getItem('purchase_tracked');
-    if (!alreadyTracked) {
+    const trackPurchaseOnce = (transactionId: string, purchaseData: Record<string, unknown>) => {
+      const trackingKey = `meta_purchase_tracked:${transactionId}`;
+      if (trackedPurchases.current.has(trackingKey) || sessionStorage.getItem(trackingKey)) return;
+
+      trackedPurchases.current.add(trackingKey);
+      trackPixelEvent('Purchase', {
+        ...purchaseData,
+        order_id: transactionId,
+      });
+      sessionStorage.setItem(trackingKey, '1');
+    };
+
+    // Buy Me a Coffee redirects here after completed payment. The cart remains in
+    // localStorage across that redirect, so capture its value before clearing it.
+    if (!sessionId) {
       try {
         const stored = localStorage.getItem(CART_STORAGE_KEY);
         if (stored) {
           const cartItem = JSON.parse(stored);
           const product = cartItem?.product;
           if (product) {
-            trackPixelEvent('Purchase', {
+            const transactionId = `${product.checkoutFlow || 'external'}-${cartItem.addedAt || product.id || product.slug}`;
+            trackPurchaseOnce(transactionId, {
               value: product.price || 0,
               currency: product.currency || 'USD',
               content_ids: [product.slug || product.id || ''],
@@ -33,16 +46,11 @@ function ThankYouContent() {
               content_type: 'product',
               num_items: cartItem.quantity || 1,
             });
-            sessionStorage.setItem('purchase_tracked', '1');
           }
         }
       } catch (e) {
         console.error('Purchase pixel error:', e);
       }
-    }
-
-    // PayPal and other redirect flows only reach this route after provider success.
-    if (!sessionId) {
       clearCart();
       return;
     }
@@ -60,15 +68,17 @@ function ThankYouContent() {
           const data = await response.json();
           setOrderDetails(data);
 
-          // Meta Pixel Purchase Event (Stripe flow — only if not already tracked)
-          if (data.status === 'paid' && !alreadyTracked) {
-            trackPixelEvent('Purchase', {
+          // Stripe purchases are tracked only after Stripe and the local order
+          // record both confirm payment.
+          if (data.status === 'paid') {
+            trackPurchaseOnce(data.orderId || sessionId, {
               value: data.amount ? data.amount / 100 : 0,
               currency: data.currency ? data.currency.toUpperCase() : 'USD',
-              content_ids: data.orderId ? [data.orderId] : [],
-              content_type: 'product'
+              content_ids: [data.orderId || sessionId],
+              content_type: 'product',
+              num_items: 1,
             });
-            sessionStorage.setItem('purchase_tracked', '1');
+            clearCart();
           }
         } else {
           console.warn('⚠️ Payment verification failed, falling back to pending UI');
@@ -81,7 +91,7 @@ function ThankYouContent() {
     };
 
     verifyInBackground();
-  }, [searchParams, sessionId]);
+  }, [sessionId]);
 
   // Always show success (Stripe only redirects here if payment succeeded)
   return (
